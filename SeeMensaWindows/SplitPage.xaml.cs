@@ -1,9 +1,12 @@
-﻿using SeeMensaWindows.Data;
-
+﻿using SeeMensaWindows.DataModel;
+using SeeMensaWindows.Storage;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
@@ -45,9 +48,9 @@ namespace SeeMensaWindows
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
-            var group = SampleDataSource.GetGroup((String)navigationParameter);
-            this.DefaultViewModel["Group"] = group;
-            this.DefaultViewModel["Items"] = group.Items;
+            var mensa = MainViewModel.GetMensa((String)navigationParameter);
+            this.DefaultViewModel["Mensa"] = mensa;
+            this.DefaultViewModel["Days"] = mensa.Days;
 
             if (pageState == null)
             {
@@ -64,9 +67,32 @@ namespace SeeMensaWindows
                 // Restore the previously saved state associated with this page
                 if (pageState.ContainsKey("SelectedItem") && this.itemsViewSource.View != null)
                 {
-                    var selectedItem = SampleDataSource.GetItem((String)pageState["SelectedItem"]);
+                    var selectedItem = MainViewModel.GetDay((String)pageState["SelectedItem"]);
                     this.itemsViewSource.View.MoveCurrentTo(selectedItem);
                 }
+            }
+
+            // Refresh the mensas-meals after the default viewmodel has been set.
+            if (!string.IsNullOrEmpty(mensa.Xml))
+            {
+                DateTime now = DateTime.Now;
+                DateTime lastUpdate = mensa.LastUpdate;
+
+                TimeSpan delay = now.Subtract(lastUpdate);
+
+                if (delay.Days >= 7)
+                {
+                    this.refresh();
+                }
+                else
+                {
+                    //this.updateAppBar(); ???
+                    // no ref
+                }
+            }
+            else
+            {
+                this.refresh();
             }
         }
 
@@ -80,8 +106,9 @@ namespace SeeMensaWindows
         {
             if (this.itemsViewSource.View != null)
             {
-                var selectedItem = (SampleDataItem)this.itemsViewSource.View.CurrentItem;
-                if (selectedItem != null) pageState["SelectedItem"] = selectedItem.UniqueId;
+                var selectedItem = (DayViewModel)this.itemsViewSource.View.CurrentItem;
+                if (selectedItem != null)
+                    pageState["SelectedItem"] = selectedItem.UniqueId;
             }
         }
 
@@ -186,5 +213,41 @@ namespace SeeMensaWindows
         }
 
         #endregion
+
+        #region mycode
+
+        /// <summary>
+        /// Starts the refresh proccess by async downloading the xml string.
+        /// </summary>
+        private async void refresh()
+        {
+            var currentMensa = (MensaItemViewModel)DefaultViewModel["Mensa"];
+
+            Uri uri = currentMensa.InterfaceUriDe;
+
+            var xml = await DownloadAsync(uri);
+
+            currentMensa.ParseXml(xml);
+
+            currentMensa.LastUpdate = DateTime.Now;
+
+            AppStorage.Save();
+        }
+
+        public static async Task<string> DownloadAsync(Uri uri)
+        {
+            HttpClientHandler handler = new HttpClientHandler { UseDefaultCredentials = true, AllowAutoRedirect = true };
+            HttpClient client = new HttpClient(handler);
+            client.MaxResponseContentBufferSize = 196608;
+            HttpResponseMessage response = await client.GetAsync(uri);
+
+            response.EnsureSuccessStatusCode();
+
+            string responseBody = await response.Content.ReadAsStringAsync();
+            return responseBody;
+        }
+
+        #endregion
+
     }
 }

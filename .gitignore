@@ -1,3 +1,4 @@
 *.suo
 SeeMensaWindows/bin/*
 SeeMensaWindows/obj/*
+*.user

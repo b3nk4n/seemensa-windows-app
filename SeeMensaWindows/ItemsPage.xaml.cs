@@ -1,4 +1,4 @@
-﻿using SeeMensaWindows.Data;
+﻿using SeeMensaWindows.DataModel;
 
 using System;
 using System.Collections.Generic;
@@ -43,8 +43,8 @@ namespace SeeMensaWindows
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
-            var sampleDataGroups = SampleDataSource.GetGroups((String)navigationParameter);
-            this.DefaultViewModel["Items"] = sampleDataGroups;
+            var mainViewModel = MainViewModel.GetMensas((String)navigationParameter);
+            this.DefaultViewModel["Days"] = mainViewModel;
         }
 
         /// <summary>
@@ -57,8 +57,8 @@ namespace SeeMensaWindows
         {
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
-            var groupId = ((SampleDataGroup)e.ClickedItem).UniqueId;
-            this.Frame.Navigate(typeof(SplitPage), groupId);
+            var mensaId = ((MensaItemViewModel)e.ClickedItem).UniqueId;
+            this.Frame.Navigate(typeof(SplitPage), mensaId);
         }
     }
 }

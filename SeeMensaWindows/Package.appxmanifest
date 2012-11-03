@@ -25,10 +25,10 @@
         Executable="$targetnametoken$.exe"
         EntryPoint="SeeMensaWindows.App">
         <VisualElements
-            DisplayName="SeeMensaWindows"
+            DisplayName="seeMENSA"
             Logo="Assets\Logo.png"
             SmallLogo="Assets\SmallLogo.png"
-            Description="SeeMensaWindows"
+            Description="seeMENSA for Windows 8"
             ForegroundText="light"
             BackgroundColor="#464646">
             <DefaultTile ShowName="allLogos" />

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SeeMensaWindows")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("seeMENSA")]
+[assembly: AssemblyDescription("Mensa App for students from Lake Constance")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SeeMensaWindows")]
+[assembly: AssemblyCompany("B. Sautermeister")]
+[assembly: AssemblyProduct("seeMENSA")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

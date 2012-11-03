@@ -1648,8 +1648,8 @@
                 <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
             </Border>
             <StackPanel VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
-                <TextBlock Text="{Binding Title}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Height="60" Margin="15,0,15,0"/>
-                <TextBlock Text="{Binding Subtitle}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+                <TextBlock Text="{Binding Name}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Height="60" Margin="15,0,15,0"/>
+                <TextBlock Text="{Binding Address1}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
             </StackPanel>
         </Grid>
     </DataTemplate>
@@ -1679,13 +1679,10 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="110" Height="110">
-                <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
-            </Border>
             <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10,0,0,0">
-                <TextBlock Text="{Binding Title}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap"/>
-                <TextBlock Text="{Binding Subtitle}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
-                <TextBlock Text="{Binding Description}" Style="{StaticResource BodyTextStyle}" MaxHeight="60"/>
+                <TextBlock Text="{Binding DayText}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap"/>
+                <TextBlock Text="{Binding DateText}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
+                <!--<TextBlock Text="{Binding Description}" Style="{StaticResource BodyTextStyle}" MaxHeight="60"/>-->
             </StackPanel>
         </Grid>
     </DataTemplate>
@@ -1700,12 +1697,9 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="60" Height="60">
-                <Image Source="{Binding Image}" Stretch="UniformToFill"/>
-            </Border>
             <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                <TextBlock Text="{Binding Title}" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
-                <TextBlock Text="{Binding Subtitle}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
+                <TextBlock Text="{Binding DayText}" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
+                <TextBlock Text="{Binding DateText}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
             </StackPanel>
         </Grid>
     </DataTemplate>
@@ -1826,4 +1820,27 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <!-- SEEMENSA STYLES -->
+    <DataTemplate x:Key="MealsItemTemplate">
+        <StackPanel>
+            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" HorizontalAlignment="Stretch" Padding="20,5" Margin="10,15,10,0">
+                <TextBlock Text="{Binding Category}" FontSize="28" 
+                                                               TextAlignment="Center" TextWrapping="Wrap" Foreground="White"/>
+            </Border>
+            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Margin="10,-1">
+                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="15,5" FontSize="24" TextAlignment="Center"
+                                                               Foreground="White"/>
+            </Border>
+            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" HorizontalAlignment="Stretch" Padding="20,0" Margin="10,-2,10,10">
+                <Grid Margin="0,10,0,5">
+                    <TextBlock Text="{Binding Signs}" FontSize="24" 
+                                                               TextAlignment="Left" TextWrapping="Wrap" Foreground="White"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <TextBlock  Text="{Binding DisplayPrice}" FontSize="24" Foreground="White"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </DataTemplate>
 </ResourceDictionary>
