@@ -13,11 +13,15 @@ namespace SeeMensaWindows.Storage
         /// </summary>
         public static async void Save()
         {
+            EasyStorage.Save("selectedMensa", MainViewModel.SelectedMensaId.ToString());
+
             foreach (var mensa in MainViewModel.GetMensas("AllMensas"))
             {
                 EasyStorage.Save(mensa.UniqueId + "update", mensa.LastUpdate.ToString());
                 await EasyStorage.SaveLarge(mensa.UniqueId + "xml", mensa.Xml);
             }
+
+            
         }
 
         /// <summary>
@@ -25,6 +29,8 @@ namespace SeeMensaWindows.Storage
         /// </summary>
         public static async void Load()
         {
+            MainViewModel.SelectMensa(EasyStorage.Load("selectedMensa"));
+
             foreach (var mensa in MainViewModel.GetMensas("AllMensas"))
             {
                 DateTime dt;
@@ -38,7 +44,7 @@ namespace SeeMensaWindows.Storage
                 {
                     mensa.ParseXml(xml);
                 }
-            }
+            } 
         }
 
         #endregion

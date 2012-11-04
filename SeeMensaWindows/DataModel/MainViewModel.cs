@@ -149,5 +149,33 @@ namespace SeeMensaWindows.DataModel
             this.AllMensas.Add(mensa3);
             this.AllMensas.Add(mensa4);
         }
+
+        private static string _selectedMensaId = string.Empty;
+
+        public static string SelectedMensaId
+        {
+            get
+            {
+                return _selectedMensaId;
+            }
+        }
+
+        public static bool IsMensaSelected
+        {
+            get
+            {
+                return !string.IsNullOrEmpty(_selectedMensaId);
+            }
+        }
+
+        public static void SelectMensa(string mensaId)
+        {
+            _selectedMensaId = mensaId;
+        }
+
+        internal static void ResetSelectedMensa()
+        {
+            _selectedMensaId = string.Empty;
+        }
     }
 }

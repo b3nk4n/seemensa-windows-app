@@ -1,10 +1,15 @@
 ﻿using SeeMensaWindows.Common;
+using SeeMensaWindows.DataModel;
 using SeeMensaWindows.Storage;
+using SeeMensaWindows.Views;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.System;
+using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 // The Split App template is documented at http://go.microsoft.com/fwlink/?LinkId=234228
 
@@ -34,6 +39,9 @@ namespace SeeMensaWindows
         /// <param name="args">Details about the launch request and process.</param>
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
+            // Load the stored settings
+            AppStorage.Load();
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -65,18 +73,24 @@ namespace SeeMensaWindows
             }
             if (rootFrame.Content == null)
             {
-                // When the navigation stack isn't restored navigate to the first page,
-                // configuring the new page by passing required information as a navigation
-                // parameter
-                if (!rootFrame.Navigate(typeof(ItemsPage), "AllMensas"))
+                if (MainViewModel.IsMensaSelected)
                 {
-                    throw new Exception("Failed to create initial page");
+                    // Redirect to the split page, if a mensa was already selected
+                    rootFrame.Navigate(typeof(SplitPage), MainViewModel.SelectedMensaId);
+                }
+                else
+                {
+                    // When the navigation stack isn't restored navigate to the first page,
+                    // configuring the new page by passing required information as a navigation
+                    // parameter
+                    if (!rootFrame.Navigate(typeof(ItemsPage), "AllMensas"))
+                    {
+                        throw new Exception("Failed to create initial page");
+                    }
                 }
             }
             // Ensure the current window is active
             Window.Current.Activate();
-
-            AppStorage.Load();
         }
 
         /// <summary>

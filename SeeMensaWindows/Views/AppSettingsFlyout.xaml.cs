@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SeeMensaWindows.DataModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,6 +33,17 @@ namespace SeeMensaWindows.Views
             }
 
             SettingsPane.Show();
+        }
+
+        private void SelectMensaClicked(object sender, RoutedEventArgs e)
+        {
+            MainViewModel.ResetSelectedMensa();
+            
+            Frame rootFrame = Window.Current.Content as Frame;
+
+            rootFrame.Navigate(typeof(ItemsPage), "AllMensas");
+
+            this.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
     }
 }

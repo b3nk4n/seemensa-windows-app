@@ -31,7 +31,17 @@
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
+
+        <ad:AdControl
+            Grid.Row="1"
+            ApplicationId="bff0b176-d738-40e7-b741-16f701f9c8c4" 
+            AdUnitId="103129" 
+            HorizontalAlignment="Center" 
+            Height="130" 
+            Margin="0,0,0,0" 
+            VerticalAlignment="Bottom" 
+            Width="500"/>
+
         <!-- Horizontal scrolling grid used in most view states -->
         <GridView
             x:Name="itemGridView"
@@ -71,21 +81,13 @@
         <!-- Back button and page title -->
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="120"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
+            <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}" Visibility="Collapsed"/>
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
-        <ad:AdControl
-            ApplicationId="bff0b176-d738-40e7-b741-16f701f9c8c4" 
-            AdUnitId="103129" 
-            HorizontalAlignment="Right" 
-            Height="130" 
-            Margin="0,0,0,0" 
-            VerticalAlignment="Top" 
-            Width="500"/>
-
+        
         <VisualStateManager.VisualStateGroups>
 
             <!-- Visual states reflect the application's view state -->

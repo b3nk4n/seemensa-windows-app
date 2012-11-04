@@ -110,6 +110,7 @@
     <Compile Include="DataModel\ViewModelDataCommon.cs" />
     <Compile Include="Helpers\Converter.cs" />
     <Compile Include="Helpers\EasyStorage.cs" />
+    <Compile Include="Helpers\SettingsPaneManager.cs" />
     <Compile Include="ItemsPage.xaml.cs">
       <DependentUpon>ItemsPage.xaml</DependentUpon>
     </Compile>

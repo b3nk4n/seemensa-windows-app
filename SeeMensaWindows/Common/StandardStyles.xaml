@@ -1823,16 +1823,16 @@
     
     <!-- SEEMENSA STYLES -->
     <DataTemplate x:Key="MealsItemTemplate">
-        <StackPanel>
-            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" HorizontalAlignment="Stretch" Padding="20,5" Margin="10,15,10,0">
+        <StackPanel Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" HorizontalAlignment="Stretch" Margin="0,5">
+            <Border HorizontalAlignment="Stretch" Padding="20,5" Margin="10,15,10,0">
                 <TextBlock Text="{Binding Category}" FontSize="28" 
                                                                TextAlignment="Center" TextWrapping="Wrap" Foreground="White"/>
             </Border>
-            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Margin="10,-1">
+            <Border Margin="10,-1">
                 <TextBlock Text="{Binding Title}" TextWrapping="Wrap" Margin="15,5" FontSize="24" TextAlignment="Center"
                                                                Foreground="White"/>
             </Border>
-            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" HorizontalAlignment="Stretch" Padding="20,0" Margin="10,-2,10,10">
+            <Border HorizontalAlignment="Stretch" Padding="20,0" Margin="10,-2,10,10">
                 <Grid Margin="0,10,0,5">
                     <TextBlock Text="{Binding Signs}" FontSize="24" 
                                                                TextAlignment="Left" TextWrapping="Wrap" Foreground="White"/>

@@ -9,6 +9,7 @@
     xmlns:common="using:SeeMensaWindows.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ad="using:Microsoft.Advertising.WinRT.UI"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -33,9 +34,10 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="130"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition x:Name="primaryColumn" Width="610"/>
+            <ColumnDefinition x:Name="primaryColumn" Width="500"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
@@ -53,6 +55,16 @@
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
 
+        <ad:AdControl
+            Grid.Row="2"
+            ApplicationId="bff0b176-d738-40e7-b741-16f701f9c8c4" 
+            AdUnitId="103129" 
+            HorizontalAlignment="Left" 
+            Height="130" 
+            Margin="0,0,0,0" 
+            VerticalAlignment="Bottom" 
+            Width="500"/>
+
         <!-- Vertical scrolling item list -->
         <ListView
             x:Name="itemListView"
@@ -61,7 +73,7 @@
             TabIndex="1"
             Grid.Row="1"
             Margin="-10,-10,0,0"
-            Padding="120,0,0,60"
+            Padding="20,0,0,60"
             ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
             IsSwipeEnabled="False"
             SelectionChanged="ItemListView_SelectionChanged"
@@ -72,31 +84,16 @@
             x:Name="itemDetail"
             AutomationProperties.AutomationId="ItemDetailScrollViewer"
             Grid.Column="1"
+            Grid.Row="1"
             Grid.RowSpan="2"
-            Padding="70,0,120,0"
+            Padding="20,0,20,0"
             DataContext="{Binding SelectedItem, ElementName=itemListView}"
             d:DataContext="{Binding AllMensas[0].Days[0], Source={d:DesignInstance Type=data:MainViewModel, IsDesignTimeCreatable=True}}"
             Style="{StaticResource VerticalScrollViewerStyle}">
 
-            <Grid x:Name="itemDetailGrid" Margin="0,60,0,50">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Image Grid.Row="1" Margin="0,0,20,0" Width="180" Height="180" Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
-                <StackPanel x:Name="itemDetailTitlePanel" Grid.Row="1" Grid.Column="1">
-                    <TextBlock x:Name="itemTitle" Margin="0,-10,0,0" Text="{Binding DayText}" Style="{StaticResource SubheaderTextStyle}"/>
-                    <TextBlock x:Name="itemSubtitle" Margin="0,0,0,20" Text="{Binding DateText}" Style="{StaticResource SubtitleTextStyle}"/>
-                </StackPanel>
-                <!--<TextBlock Grid.Row="2" Grid.ColumnSpan="2" Margin="0,20,0,0" Text="{Binding Content}" Style="{StaticResource BodyTextStyle}"/>-->
-                <ListView x:Name="mealsList" Grid.Row="2" Grid.RowSpan="2" Margin="0,20,0,0" ItemsSource="{Binding Meals}"
-                          ItemTemplate="{StaticResource MealsItemTemplate}" SelectionMode="None"/>
+            <Grid x:Name="itemDetailGrid" Margin="0,0,0,0">
+                <ItemsControl x:Name="mealsList" Margin="0,0,0,0" ItemsSource="{Binding Meals}"
+                          ItemTemplate="{StaticResource MealsItemTemplate}"/>
             </Grid>
         </ScrollViewer>
 

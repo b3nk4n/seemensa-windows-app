@@ -1,5 +1,6 @@
 ﻿using SeeMensaWindows.DataModel;
-
+using SeeMensaWindows.Helpers;
+using SeeMensaWindows.Views;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,6 +8,8 @@ using System.Linq;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
+using Windows.System;
+using Windows.UI.ApplicationSettings;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -29,6 +32,9 @@ namespace SeeMensaWindows
         public ItemsPage()
         {
             this.InitializeComponent();
+
+            // App settings in charms bar
+            SettingsPane.GetForCurrentView().CommandsRequested += App_CommandsRequested;
         }
 
         /// <summary>
@@ -58,7 +64,17 @@ namespace SeeMensaWindows
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
             var mensaId = ((MensaItemViewModel)e.ClickedItem).UniqueId;
+            MainViewModel.SelectMensa(mensaId);
             this.Frame.Navigate(typeof(SplitPage), mensaId);
         }
+
+        #region Charms settings
+
+        private void App_CommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
+        {
+            SettingsPaneManager.RegisterSettings(args.Request.ApplicationCommands);
+        }
+
+        #endregion
     }
 }
