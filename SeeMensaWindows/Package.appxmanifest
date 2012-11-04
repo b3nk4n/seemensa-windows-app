@@ -2,12 +2,12 @@
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
 
   <Identity Name="c8eb10fe-c84a-4618-9fc8-7dffdf86454c"
-            Publisher="CN=Benjamin"
+            Publisher="CN=Benjamin Sautermeister"
             Version="1.0.0.0" />
 
   <Properties>
-    <DisplayName>SeeMensaWindows</DisplayName>
-    <PublisherDisplayName>Benjamin</PublisherDisplayName>
+    <DisplayName>seeMENSA</DisplayName>
+    <PublisherDisplayName>Benjamin Sautermeister</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
