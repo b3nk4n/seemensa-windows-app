@@ -25,7 +25,8 @@ namespace SeeMensaWindows.DataModel
             _interfaceUriDe = interfaceUriDe;
             _address1 = address1;
             _address2 = address2;
-            _imagePath = imagePath;
+            //_imagePath = imagePath;
+            SetImage(imagePath);
         }
 
         public void ParseXml(string xml)
