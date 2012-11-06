@@ -1,27 +1,15 @@
-﻿using SeeMensaWindows.DataModel;
+﻿using SeeMensaWindows.LiveTile;
+using SeeMensaWindows.DataModel;
 using SeeMensaWindows.Helpers;
 using SeeMensaWindows.Storage;
-using SeeMensaWindows.Views;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Xml.Linq;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Display;
-using Windows.System;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Split Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234234
 
@@ -33,6 +21,8 @@ namespace SeeMensaWindows
     /// </summary>
     public sealed partial class SplitPage : SeeMensaWindows.Common.LayoutAwarePage
     {
+        LiveTileManager _liveTileManager;
+
         public SplitPage()
         {
             this.InitializeComponent();
@@ -40,11 +30,32 @@ namespace SeeMensaWindows
 
             // App settings in charms bar
             SettingsPane.GetForCurrentView().CommandsRequested += App_CommandsRequested;
+
+            _liveTileManager = new LiveTileManager(Windows.UI.Notifications.TileTemplateType.TileWideText09, Windows.UI.Notifications.TileTemplateType.TileSquareText02, true);
         }
 
         void SplitPage_Loaded(object sender, RoutedEventArgs e)
         {
             EnsureOneItemIsSelected();
+
+            // Update Live Tile ... TODO: move this code to the right position and refactor it!
+            UpdateLiveTile();
+        }
+
+        private void UpdateLiveTile()
+        {
+            var mensa = DefaultViewModel["Mensa"] as MensaItemViewModel;
+            if (mensa != null && mensa.Days.Count > 0)
+            {
+                var todayMeals = mensa.Days[0].Meals;
+
+                for (int i = 0; (i < todayMeals.Count) && i < 5; i++)
+                {
+                    _liveTileManager.Tiles.Add(new LiveTileData(todayMeals[i].Category, todayMeals[i].Title, null));
+                }
+
+                _liveTileManager.Update();
+            }
         }
 
         /// <summary>

@@ -162,7 +162,7 @@
                         <EntranceThemeTransition FromHorizontalOffset="120" />
                     </TransitionCollection>
                 </Grid.Transitions>
-                <ToggleSwitch Header="Live Tile" />
+                <ToggleSwitch x:Name="tsLiveTile" Header="Live Tile" Toggled="tsLiveTileToggled" />
             </Grid>
         </Grid>
     </Border>

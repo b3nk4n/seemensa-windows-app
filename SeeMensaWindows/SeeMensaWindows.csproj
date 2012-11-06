@@ -103,6 +103,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\LiveTile.cs" />
+    <Compile Include="Common\LiveTileData.cs" />
+    <Compile Include="Common\LiveTileManager.cs" />
     <Compile Include="DataModel\DayViewModel.cs" />
     <Compile Include="DataModel\MainViewModel.cs" />
     <Compile Include="DataModel\MealViewModel.cs" />
@@ -146,6 +149,7 @@
   <ItemGroup>
     <Content Include="Assets\htwgkn.png" />
     <Content Include="Assets\Logo.png" />
+    <Content Include="Assets\LogoWide.png" />
     <Content Include="Assets\phwg.png" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />

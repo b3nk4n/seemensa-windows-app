@@ -1,15 +1,11 @@
 ﻿using SeeMensaWindows.Common;
 using SeeMensaWindows.DataModel;
 using SeeMensaWindows.Storage;
-using SeeMensaWindows.Views;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.System;
-using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
 
 // The Split App template is documented at http://go.microsoft.com/fwlink/?LinkId=234228
 

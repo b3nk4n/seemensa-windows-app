@@ -177,5 +177,19 @@ namespace SeeMensaWindows.DataModel
         {
             _selectedMensaId = string.Empty;
         }
+
+        private static bool _hasLiveTile;
+
+        public static bool HasLiveTile
+        {
+            get
+            {
+                return _hasLiveTile;
+            }
+            set
+            {
+                _hasLiveTile = true;
+            }
+        }
     }
 }

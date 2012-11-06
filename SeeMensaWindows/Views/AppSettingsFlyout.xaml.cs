@@ -1,18 +1,8 @@
 ﻿using SeeMensaWindows.DataModel;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -23,6 +13,8 @@ namespace SeeMensaWindows.Views
         public AppSettingsFlyout()
         {
             this.InitializeComponent();
+
+            this.tsLiveTile.IsOn = MainViewModel.HasLiveTile;
         }
 
         private void BackClicked(object sender, RoutedEventArgs e)
@@ -44,6 +36,16 @@ namespace SeeMensaWindows.Views
             rootFrame.Navigate(typeof(ItemsPage), "AllMensas");
 
             this.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+        }
+
+        private void tsLiveTileToggled(object sender, RoutedEventArgs e)
+        {
+            var toggle = sender as ToggleSwitch;
+
+            if (toggle != null)
+            {
+                MainViewModel.HasLiveTile = toggle.IsOn;
+            }
         }
     }
 }
