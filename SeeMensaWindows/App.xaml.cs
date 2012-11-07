@@ -1,11 +1,12 @@
 ﻿using SeeMensaWindows.Common;
-using SeeMensaWindows.DataModel;
-using SeeMensaWindows.Storage;
+using SeeMensaWindows.Common.DataModel;
+using SeeMensaWindows.Common.Storage;
 using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.ApplicationModel.Background;
 
 // The Split App template is documented at http://go.microsoft.com/fwlink/?LinkId=234228
 
@@ -27,6 +28,27 @@ namespace SeeMensaWindows
             this.Resuming += OnResuming;
         }
 
+        private void RegisterBackgroundTasks()
+        {
+            BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
+
+            // Friendly string name identifying the background task
+            builder.Name = "seeMENSA Live Tile";
+            // Class name
+            builder.TaskEntryPoint = "TileBackground.TileBackgroundAgent";
+
+            IBackgroundTrigger trigger = new TimeTrigger(15, true);
+            builder.SetTrigger(trigger);
+            IBackgroundCondition condition = new SystemCondition(SystemConditionType.InternetAvailable);
+            builder.AddCondition(condition);
+
+            IBackgroundTaskRegistration task = builder.Register();
+
+            //You have the option of implementing these events to do something upon completion
+            //task.Progress += task_Progress;
+            //task.Completed += task_Completed;
+        }
+
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used when the application is launched to open a specific file, to display
@@ -36,7 +58,9 @@ namespace SeeMensaWindows
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
             // Load the stored settings
-            AppStorage.Load();
+            await AppStorage.Load();
+
+            RegisterBackgroundTasks();
 
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -103,9 +127,9 @@ namespace SeeMensaWindows
             deferral.Complete();
         }
 
-        void OnResuming(object sender, object e)
+        private async void OnResuming(object sender, object e)
         {
-            AppStorage.Load();
+            await AppStorage.Load();
         }
     }
 }

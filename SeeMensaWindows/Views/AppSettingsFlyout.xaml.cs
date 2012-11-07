@@ -1,4 +1,4 @@
-﻿using SeeMensaWindows.DataModel;
+﻿using SeeMensaWindows.Common.DataModel;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

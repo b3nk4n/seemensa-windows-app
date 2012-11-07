@@ -1,4 +1,4 @@
-﻿using SeeMensaWindows.DataModel;
+﻿using SeeMensaWindows.Common.DataModel;
 using SeeMensaWindows.Helpers;
 using System;
 using System.Collections.Generic;

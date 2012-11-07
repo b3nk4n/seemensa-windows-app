@@ -1,15 +1,15 @@
-﻿using SeeMensaWindows.LiveTile;
-using SeeMensaWindows.DataModel;
+﻿using SeeMensaWindows.Common.LiveTile;
+using SeeMensaWindows.Common.DataModel;
 using SeeMensaWindows.Helpers;
-using SeeMensaWindows.Storage;
+using SeeMensaWindows.Common.Storage;
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using SeeMensaWindows.Common.DataAccess;
 
 // The Split Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234234
 
@@ -271,23 +271,34 @@ namespace SeeMensaWindows
             AppStorage.Save();
         }
 
+        /// <summary>
+        /// Downloads the xml data async.
+        /// </summary>
+        /// <param name="uri">
+        /// The data source uri.
+        /// </param>
+        /// <returns>
+        /// The loaded data.
+        /// </returns>
         public static async Task<string> DownloadAsync(Uri uri)
         {
-            HttpClientHandler handler = new HttpClientHandler { UseDefaultCredentials = true, AllowAutoRedirect = true };
-            HttpClient client = new HttpClient(handler);
-            client.MaxResponseContentBufferSize = 196608;
-            HttpResponseMessage response = await client.GetAsync(uri);
-
-            response.EnsureSuccessStatusCode();
-
-            string responseBody = await response.Content.ReadAsStringAsync();
-            return responseBody;
+            IRepository repo = new HttpWebLoader();
+            return await repo.GetDataAsync(uri);
         }
 
         #endregion
 
         #region Charms settings
 
+        /// <summary>
+        /// Registers the app settings.
+        /// </summary>
+        /// <param name="sender">
+        /// The sender.
+        /// </param>
+        /// <param name="args">
+        /// The event args.
+        /// </param>
         private void App_CommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
         {
             SettingsPaneManager.RegisterSettings(args.Request.ApplicationCommands);

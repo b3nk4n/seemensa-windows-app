@@ -4,18 +4,18 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{94620D3B-0A57-45FD-867F-2FB617622DDE}</ProjectGuid>
-    <OutputType>AppContainerExe</OutputType>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{938C27CF-B707-4E60-B967-BAED92DAFA7C}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SeeMensaWindows</RootNamespace>
-    <AssemblyName>SeeMensaWindows</AssemblyName>
+    <RootNamespace>SeeMensaWindows.Common</RootNamespace>
+    <AssemblyName>SeeMensaWindows.Common</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>SeeMensaWindows_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,7 +25,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -100,99 +99,24 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Common\SettingsPaneManager.cs" />
+    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DataAccess\HttpWebLoader.cs" />
+    <Compile Include="DataAccess\IRepository.cs" />
+    <Compile Include="LiveTile\LiveTileData.cs" />
+    <Compile Include="LiveTile\LiveTileManager.cs" />
+    <Compile Include="Storage\AppStorage.cs" />
+    <Compile Include="Universal\BindableBase.cs" />
+    <Compile Include="DataModel\DayViewModel.cs" />
+    <Compile Include="DataModel\MainViewModel.cs" />
+    <Compile Include="DataModel\MealViewModel.cs" />
+    <Compile Include="DataModel\MensaViewModel.cs" />
+    <Compile Include="DataModel\PriceType.cs" />
+    <Compile Include="DataModel\ViewModelDataCommon.cs" />
     <Compile Include="Helpers\Converter.cs" />
     <Compile Include="Helpers\EasyStorage.cs" />
-    <Compile Include="Helpers\SettingsPaneManager.cs" />
-    <Compile Include="ItemsPage.xaml.cs">
-      <DependentUpon>ItemsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SplitPage.xaml.cs">
-      <DependentUpon>SplitPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Common\BindableBase.cs" />
-    <Compile Include="Common\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Common\BooleanNegationConverter.cs" />
-    <Compile Include="Common\LayoutAwarePage.cs" />
-    <Compile Include="Common\RichTextColumns.cs" />
-    <Compile Include="Common\SuspensionManager.cs" />
-    <Compile Include="Views\AboutFlyout.xaml.cs">
-      <DependentUpon>AboutFlyout.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AppSettingsFlyout.xaml.cs">
-      <DependentUpon>AppSettingsFlyout.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\HelpFlyout.xaml.cs">
-      <DependentUpon>HelpFlyout.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <AppxManifest Include="Package.appxmanifest">
-      <SubType>Designer</SubType>
-    </AppxManifest>
-    <None Include="Common\ReadMe.txt" />
-    <None Include="SeeMensaWindows_TemporaryKey.pfx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\htwgkn.png" />
-    <Content Include="Assets\Logo.png" />
-    <Content Include="Assets\LogoWide.png" />
-    <Content Include="Assets\phwg.png" />
-    <Content Include="Assets\SmallLogo.png" />
-    <Content Include="Assets\SmallLogoBadge.png" />
-    <Content Include="Assets\SplashScreen.png" />
-    <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Assets\unifn.png" />
-    <Content Include="Assets\unikn.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Page Include="Common\StandardStyles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="ItemsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SplitPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\AboutFlyout.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\AppSettingsFlyout.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\HelpFlyout.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <SDKReference Include="MSAdvertisingXaml, Version=6.1">
-      <Name>Microsoft Advertising SDK for Windows 8 %28Xaml%29</Name>
-    </SDKReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SeeMensaWindows.Common\SeeMensaWindows.Common.csproj">
-      <Project>{938c27cf-b707-4e60-b967-baed92dafa7c}</Project>
-      <Name>SeeMensaWindows.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TileBackground\TileBackground.csproj">
-      <Project>{7557a3a7-fa33-45c9-9ca3-9453246a6c19}</Project>
-      <Name>TileBackground</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

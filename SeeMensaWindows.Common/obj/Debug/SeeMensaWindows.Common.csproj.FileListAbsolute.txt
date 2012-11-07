@@ -1,0 +1,14 @@
+C:\Projects\w8\SeeMensa\SeeMensaWindows.Common\bin\Debug\SeeMensaWindows.Common.dll
+C:\Projects\w8\SeeMensa\SeeMensaWindows.Common\bin\Debug\SeeMensaWindows.Common.pdb
+C:\Projects\w8\SeeMensa\SeeMensaWindows.Common\bin\Debug\SeeMensaWindows.Common.pri
+C:\Projects\w8\SeeMensa\SeeMensaWindows.Common\obj\Debug\SeeMensaWindows.Common.dll
+C:\Projects\w8\SeeMensa\SeeMensaWindows.Common\obj\Debug\SeeMensaWindows.Common.pdb
+C:\Projects\w8\SeeMensa\SeeMensaWindows.Common\obj\Debug\priconfig.xml
+C:\Projects\w8\SeeMensa\SeeMensaWindows.Common\obj\Debug\layout.resfiles
+C:\Projects\w8\SeeMensa\SeeMensaWindows.Common\obj\Debug\resources.resfiles
+C:\Projects\w8\SeeMensa\SeeMensaWindows.Common\obj\Debug\pri.resfiles
+C:\Projects\w8\SeeMensa\SeeMensaWindows.Common\obj\Debug\LanguageQualifiers.txt
+C:\Projects\w8\SeeMensa\SeeMensaWindows.Common\obj\Debug\priconfig.xml.intermediate
+C:\Projects\w8\SeeMensa\SeeMensaWindows.Common\obj\Debug\layout.resfiles.intermediate
+C:\Projects\w8\SeeMensa\SeeMensaWindows.Common\obj\Debug\resources.resfiles.intermediate
+C:\Projects\w8\SeeMensa\SeeMensaWindows.Common\obj\Debug\pri.resfiles.intermediate

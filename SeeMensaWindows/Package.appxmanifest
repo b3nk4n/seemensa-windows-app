@@ -16,9 +16,17 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="SeeMensaWindows.App">
       <VisualElements DisplayName="seeMENSA" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="seeMENSA for Windows 8" ForegroundText="light" BackgroundColor="#464646">
+        <LockScreen Notification="badge" BadgeLogo="Assets\SmallLogoBadge.png" />
         <DefaultTile ShowName="allLogos" WideLogo="Assets\LogoWide.png" />
         <SplashScreen Image="Assets\SplashScreen.png" />
       </VisualElements>
+      <Extensions>
+        <Extension Category="windows.backgroundTasks" EntryPoint="TileBackground.TileBackgroundAgent">
+          <BackgroundTasks>
+            <Task Type="timer" />
+          </BackgroundTasks>
+        </Extension>
+      </Extensions>
     </Application>
   </Applications>
   <Capabilities>
