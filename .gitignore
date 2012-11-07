@@ -1,4 +1,8 @@
 *.suo
 SeeMensaWindows/bin/*
 SeeMensaWindows/obj/*
+SeeMensaWindows.Commom/bin/*
+SeeMensaWindows.Common/obj/*
+TileBackground/bin/*
+TileBackground/obj/*
 *.user
