@@ -21,6 +21,7 @@ namespace SeeMensaWindows
     /// </summary>
     public sealed partial class SplitPage : SeeMensaWindows.Common.LayoutAwarePage
     {
+        static MainViewModel _mainViewModel = MainViewModel.GetInstance;
         LiveTileManager _liveTileManager;
 
         public SplitPage()
@@ -83,7 +84,7 @@ namespace SeeMensaWindows
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
-            var mensa = MainViewModel.GetMensa((String)navigationParameter);
+            var mensa = _mainViewModel.GetMensa((String)navigationParameter);
             this.DefaultViewModel["Mensa"] = mensa;
             this.DefaultViewModel["Days"] = mensa.Days;
 
@@ -102,7 +103,7 @@ namespace SeeMensaWindows
                 // Restore the previously saved state associated with this page
                 if (pageState.ContainsKey("SelectedItem") && this.itemsViewSource.View != null)
                 {
-                    var selectedItem = MainViewModel.GetDay((String)pageState["SelectedItem"]);
+                    var selectedItem = _mainViewModel.GetDay((String)pageState["SelectedItem"]);
                     this.itemsViewSource.View.MoveCurrentTo(selectedItem);
                 }
             }
@@ -306,5 +307,14 @@ namespace SeeMensaWindows
 
         #endregion
 
+
+        internal void Refresh()
+        {
+            int selectedIndex = itemListView.SelectedIndex;
+
+            _mainViewModel.Refresh();
+
+            itemListView.SelectedIndex = selectedIndex;
+        }
     }
 }

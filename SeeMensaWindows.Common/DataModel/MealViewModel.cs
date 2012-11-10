@@ -12,13 +12,15 @@ namespace SeeMensaWindows.Common.DataModel
     /// </summary>
     public class MealViewModel : ViewModelDataCommon
     {
+        static MainViewModel _mainViewModel = MainViewModel.GetInstance;
+
         public MealViewModel(string uniqueId, string category, string title, string description, string kennzeichnung,
                              string beilagen, string preis1, string preis2, string preis3, string preis4, string einheit,
                              string signs)
             : base(uniqueId)
         {
             _category = category;
-            _title = title;
+            _title = title.Replace("&quot;","\"");
             _description = description;
             _kennzeichnungen = kennzeichnung;
             _beilagen = beilagen;
@@ -330,6 +332,82 @@ namespace SeeMensaWindows.Common.DataModel
                 signList.Add("V");
             }
 
+            // Veg/Pig
+            if (title.Contains(" Veg/Sch "))
+            {
+                title = title.Replace(" (Veg/Sch) ", " ");
+                signList.Add("V");
+                signList.Add("S");
+            }
+            else if (title.Contains(" (Veg/Sch)"))
+            {
+                title = title.Replace(" (Veg/Sch)", "");
+                signList.Add("V");
+                signList.Add("S");
+            }
+            else if (title.EndsWith(" Veg/Sch"))
+            {
+                title = title.Substring(0, title.Length - 4);
+                signList.Add("V");
+                signList.Add("S");
+            }
+            else if (title.Contains(" Veg/P "))
+            {
+                title = title.Replace(" Veg/P ", " ");
+                signList.Add("V");
+                signList.Add("P");
+            }
+            else if (title.Contains(" (Veg/P)"))
+            {
+                title = title.Replace(" (Veg/P)", "");
+                signList.Add("V");
+                signList.Add("P");
+            }
+            else if (title.EndsWith(" Veg/P"))
+            {
+                title = title.Substring(0, title.Length - 2);
+                signList.Add("V");
+                signList.Add("P");
+            }
+
+            // Po/F
+            if (title.Contains(" G/F "))
+            {
+                title = title.Replace(" (G/F) ", " ");
+                signList.Add("G");
+                signList.Add("F");
+            }
+            else if (title.Contains(" (G/F)"))
+            {
+                title = title.Replace(" (G/F)", "");
+                signList.Add("G");
+                signList.Add("F");
+            }
+            else if (title.EndsWith(" G/F"))
+            {
+                title = title.Substring(0, title.Length - 4);
+                signList.Add("G");
+                signList.Add("F");
+            }
+            else if (title.Contains(" Po/F "))
+            {
+                title = title.Replace(" Po/F ", " ");
+                signList.Add("Po");
+                signList.Add("F");
+            }
+            else if (title.Contains(" (Po/F)"))
+            {
+                title = title.Replace(" (Po/F)", "");
+                signList.Add("Po");
+                signList.Add("F");
+            }
+            else if (title.EndsWith(" Po/F"))
+            {
+                title = title.Substring(0, title.Length - 2);
+                signList.Add("Po");
+                signList.Add("F");
+            }
+
             var sb = new StringBuilder();
 
             for (int i = 0; i < signList.Count; ++i)
@@ -426,11 +504,38 @@ namespace SeeMensaWindows.Common.DataModel
             }
         }
 
+        /// <summary>
+        /// Gets the price by the selected type.
+        /// </summary>
         public string DisplayPrice
         {
             get
             {
-                return string.Format("{0} {1}", Preis1, Einheit);
+                string priceToReturn = "";
+
+                switch (_mainViewModel.PriceType)
+                {
+                    case PriceType.Guest:
+                        priceToReturn = _preis3;
+                        break;
+
+                    case PriceType.Employee:
+                        priceToReturn = _preis2;
+                        break;
+
+                    case PriceType.Pupil:
+                        priceToReturn = _preis4;
+                        break;
+
+                    default:
+                        priceToReturn = _preis1;
+                        break;
+                }
+
+                if (priceToReturn.Equals("0,00") || priceToReturn.Equals("0.00"))
+                    return string.Empty;
+                else
+                    return priceToReturn + " €";
             }
         }
 

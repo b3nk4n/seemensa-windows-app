@@ -7,6 +7,8 @@ namespace SeeMensaWindows.Common.Storage
 {
     public static class AppStorage
     {
+         static MainViewModel _mainViewModel = MainViewModel.GetInstance;
+
         #region Load/Save
 
         /// <summary>
@@ -14,9 +16,10 @@ namespace SeeMensaWindows.Common.Storage
         /// </summary>
         public static async void Save()
         {
-            EasyStorage.Save("selectedMensa", MainViewModel.SelectedMensaId.ToString());
+            EasyStorage.Save("selectedMensa", _mainViewModel.SelectedMensaId.ToString());
+            EasyStorage.Save("pricetype", _mainViewModel.PriceType.ToString());
 
-            foreach (var mensa in MainViewModel.GetMensas("AllMensas"))
+            foreach (var mensa in _mainViewModel.GetMensas("AllMensas"))
             {
                 EasyStorage.Save(mensa.UniqueId + "update", mensa.LastUpdate.ToString());
                 await EasyStorage.SaveLarge(mensa.UniqueId + "xml", mensa.Xml);
@@ -30,9 +33,16 @@ namespace SeeMensaWindows.Common.Storage
         /// </summary>
         public static async Task Load()
         {
-            MainViewModel.SelectMensa(EasyStorage.Load("selectedMensa"));
+            _mainViewModel.SelectMensa(EasyStorage.Load("selectedMensa"));
 
-            foreach (var mensa in MainViewModel.GetMensas("AllMensas"))
+            var pricetype = EasyStorage.Load("pricetype");
+            if (!string.IsNullOrEmpty(pricetype))
+            {
+                _mainViewModel.PriceType = (PriceType)Enum.Parse(typeof(PriceType), pricetype, true);
+            }
+
+
+            foreach (var mensa in _mainViewModel.GetMensas("AllMensas"))
             {
                 DateTime dt;
                 if (DateTime.TryParse(EasyStorage.Load(mensa.UniqueId + "update"), out dt))

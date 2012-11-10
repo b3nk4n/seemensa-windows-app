@@ -19,75 +19,76 @@ namespace SeeMensaWindows.Helpers
 
         public static void RegisterSettings(IList<SettingsCommand> appCommands)
         {
-            appCommands.Clear();
-
-            appCommands.Add(new SettingsCommand("visit", "Get seeMENSA for Windows Phone", async a =>
+            if (appCommands.Count == 0)
             {
-                await Launcher.LaunchUriAsync(new Uri("http://bsautermeister.de/seemensa"));
-            }));
+                appCommands.Add(
+                    new SettingsCommand("settings", "Einstellungen",
+                    a =>
+                    {
+                        _settingsPopup = new Popup();
+                        _settingsPopup.Closed += OnPopupClosed;
+                        Window.Current.Activated += OnWindowActivated;
 
-            appCommands.Add(
-                new SettingsCommand("settings", "Mensa Settings",
-                a =>
+                        _settingsPopup.IsLightDismissEnabled = true;
+                        _settingsPopup.Width = SettingsWidth;
+                        _settingsPopup.Height = Window.Current.Bounds.Height;
+
+                        var mypane = new AppSettingsFlyout();
+                        mypane.Width = SettingsWidth;
+                        mypane.Height = Window.Current.Bounds.Height;
+                        _settingsPopup.Child = mypane;
+                        _settingsPopup.SetValue(Canvas.LeftProperty, Window.Current.Bounds.Width - SettingsWidth);
+                        _settingsPopup.SetValue(Canvas.TopProperty, 0);
+                        _settingsPopup.IsOpen = true;
+                    }));
+
+                appCommands.Add(
+                    new SettingsCommand("about", "Über seeMENSA",
+                    a =>
+                    {
+                        _settingsPopup = new Popup();
+                        _settingsPopup.Closed += OnPopupClosed;
+                        Window.Current.Activated += OnWindowActivated;
+
+                        _settingsPopup.IsLightDismissEnabled = true;
+                        _settingsPopup.Width = SettingsWidth;
+                        _settingsPopup.Height = Window.Current.Bounds.Height;
+
+                        var mypane = new AboutFlyout();
+                        mypane.Width = SettingsWidth;
+                        mypane.Height = Window.Current.Bounds.Height;
+                        _settingsPopup.Child = mypane;
+                        _settingsPopup.SetValue(Canvas.LeftProperty, Window.Current.Bounds.Width - SettingsWidth);
+                        _settingsPopup.SetValue(Canvas.TopProperty, 0);
+                        _settingsPopup.IsOpen = true;
+                    }));
+
+                appCommands.Add(new SettingsCommand("visit", "seeMENSA für Windows Phone", async a =>
                 {
-                    _settingsPopup = new Popup();
-                    _settingsPopup.Closed += OnPopupClosed;
-                    Window.Current.Activated += OnWindowActivated;
-
-                    _settingsPopup.IsLightDismissEnabled = true;
-                    _settingsPopup.Width = SettingsWidth;
-                    _settingsPopup.Height = Window.Current.Bounds.Height;
-
-                    var mypane = new AppSettingsFlyout();
-                    mypane.Width = SettingsWidth;
-                    mypane.Height = Window.Current.Bounds.Height;
-                    _settingsPopup.Child = mypane;
-                    _settingsPopup.SetValue(Canvas.LeftProperty, Window.Current.Bounds.Width - SettingsWidth);
-                    _settingsPopup.SetValue(Canvas.TopProperty, 0);
-                    _settingsPopup.IsOpen = true;
+                    await Launcher.LaunchUriAsync(new Uri("http://bsautermeister.de/seemensa"));
                 }));
 
-            appCommands.Add(
-                new SettingsCommand("help", "Help",
-                a =>
-                {
-                    _settingsPopup = new Popup();
-                    _settingsPopup.Closed += OnPopupClosed;
-                    Window.Current.Activated += OnWindowActivated;
+                appCommands.Add(
+                    new SettingsCommand("help", "Hilfe",
+                    a =>
+                    {
+                        _settingsPopup = new Popup();
+                        _settingsPopup.Closed += OnPopupClosed;
+                        Window.Current.Activated += OnWindowActivated;
 
-                    _settingsPopup.IsLightDismissEnabled = true;
-                    _settingsPopup.Width = SettingsWidth;
-                    _settingsPopup.Height = Window.Current.Bounds.Height;
+                        _settingsPopup.IsLightDismissEnabled = true;
+                        _settingsPopup.Width = SettingsWidth;
+                        _settingsPopup.Height = Window.Current.Bounds.Height;
 
-                    var mypane = new HelpFlyout();
-                    mypane.Width = SettingsWidth;
-                    mypane.Height = Window.Current.Bounds.Height;
-                    _settingsPopup.Child = mypane;
-                    _settingsPopup.SetValue(Canvas.LeftProperty, Window.Current.Bounds.Width - SettingsWidth);
-                    _settingsPopup.SetValue(Canvas.TopProperty, 0);
-                    _settingsPopup.IsOpen = true;
-                }));
-
-            appCommands.Add(
-                new SettingsCommand("about", "About seeMENSA",
-                a =>
-                {
-                    _settingsPopup = new Popup();
-                    _settingsPopup.Closed += OnPopupClosed;
-                    Window.Current.Activated += OnWindowActivated;
-
-                    _settingsPopup.IsLightDismissEnabled = true;
-                    _settingsPopup.Width = SettingsWidth;
-                    _settingsPopup.Height = Window.Current.Bounds.Height;
-
-                    var mypane = new AboutFlyout();
-                    mypane.Width = SettingsWidth;
-                    mypane.Height = Window.Current.Bounds.Height;
-                    _settingsPopup.Child = mypane;
-                    _settingsPopup.SetValue(Canvas.LeftProperty, Window.Current.Bounds.Width - SettingsWidth);
-                    _settingsPopup.SetValue(Canvas.TopProperty, 0);
-                    _settingsPopup.IsOpen = true;
-                }));
+                        var mypane = new HelpFlyout();
+                        mypane.Width = SettingsWidth;
+                        mypane.Height = Window.Current.Bounds.Height;
+                        _settingsPopup.Child = mypane;
+                        _settingsPopup.SetValue(Canvas.LeftProperty, Window.Current.Bounds.Width - SettingsWidth);
+                        _settingsPopup.SetValue(Canvas.TopProperty, 0);
+                        _settingsPopup.IsOpen = true;
+                    }));
+            }
         }
 
         private static void OnWindowActivated(object sender, Windows.UI.Core.WindowActivatedEventArgs e)

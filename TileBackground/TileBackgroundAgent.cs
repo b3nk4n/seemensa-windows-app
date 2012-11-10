@@ -11,6 +11,7 @@ namespace TileBackground
     public sealed class TileBackgroundAgent : IBackgroundTask
     {
         LiveTileManager _liveTileManager;
+        static MainViewModel _mainViewModel = MainViewModel.GetInstance;
 
         /// <summary>
         /// The entry point of the background worker.
@@ -25,9 +26,9 @@ namespace TileBackground
             // Loads the data.
             await AppStorage.Load();
 
-            if (MainViewModel.IsMensaSelected)
+            if (_mainViewModel.IsMensaSelected)
             {
-                var mensa = MainViewModel.GetMensa(MainViewModel.SelectedMensaId);
+                var mensa = _mainViewModel.GetMensa(_mainViewModel.SelectedMensaId);
 
                 await CheckLoadXml(mensa);
 
@@ -54,6 +55,10 @@ namespace TileBackground
                 var xml = await DownloadAsync(mensa.InterfaceUriDe);
 
                 mensa.ParseXml(xml);
+
+                mensa.LastUpdate = DateTime.UtcNow;
+
+                AppStorage.Save();
             }
         }
 
@@ -62,7 +67,7 @@ namespace TileBackground
         /// </summary>
         private void UpdateLiveTile(MensaItemViewModel mensa)
         {
-            if (MainViewModel.IsMensaSelected)
+            if (_mainViewModel.IsMensaSelected)
             {
                 if (mensa.Days.Count > 0)
                 {
@@ -72,7 +77,7 @@ namespace TileBackground
 
                     for (int i = 0; (i < todayMeals.Count) && i < 5; i++)
                     {
-                        _liveTileManager.Tiles.Add(new LiveTileData(todayMeals[i].Category, mensa.LastUpdate.ToString(), null));
+                        _liveTileManager.Tiles.Add(new LiveTileData(todayMeals[i].Category, todayMeals[i].Title, null));
                     }
 
                     _liveTileManager.Update();

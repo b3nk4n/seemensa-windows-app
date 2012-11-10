@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SeeMensaWindows.Common.Universal;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace SeeMensaWindows.Common.DataModel
     /// SampleDataSource initializes with placeholder data rather than live production
     /// data so that sample data is provided at both design-time and run-time.
     /// </summary>
-    public sealed class MainViewModel
+    public sealed class MainViewModel : BindableBase
     {
         private static MainViewModel _mainViewModel = new MainViewModel();
 
@@ -31,14 +32,14 @@ namespace SeeMensaWindows.Common.DataModel
             get { return _allMensas; }
         }
 
-        public static IEnumerable<MensaItemViewModel> GetMensas(string uniqueId)
+        public IEnumerable<MensaItemViewModel> GetMensas(string uniqueId)
         {
             if (!uniqueId.Equals("AllMensas")) throw new ArgumentException("Only 'AllMensas' is supported as a collection of mensas");
 
             return _mainViewModel.AllMensas;
         }
 
-        public static MensaItemViewModel GetMensa(string uniqueId)
+        public MensaItemViewModel GetMensa(string uniqueId)
         {
             // Simple linear search is acceptable for small data sets
             var matches = _mainViewModel.AllMensas.Where((mensa) => mensa.UniqueId.Equals(uniqueId));
@@ -46,7 +47,7 @@ namespace SeeMensaWindows.Common.DataModel
             return null;
         }
 
-        public static DayViewModel GetDay(string uniqueId)
+        public DayViewModel GetDay(string uniqueId)
         {
             // Simple linear search is acceptable for small data sets
             var matches = _mainViewModel.AllMensas.SelectMany(mensa => mensa.Days).Where((item) => item.UniqueId.Equals(uniqueId));
@@ -150,9 +151,9 @@ namespace SeeMensaWindows.Common.DataModel
             this.AllMensas.Add(mensa4);
         }
 
-        private static string _selectedMensaId = string.Empty;
+        private string _selectedMensaId = string.Empty;
 
-        public static string SelectedMensaId
+        public string SelectedMensaId
         {
             get
             {
@@ -160,7 +161,7 @@ namespace SeeMensaWindows.Common.DataModel
             }
         }
 
-        public static bool IsMensaSelected
+        public bool IsMensaSelected
         {
             get
             {
@@ -168,28 +169,35 @@ namespace SeeMensaWindows.Common.DataModel
             }
         }
 
-        public static void SelectMensa(string mensaId)
+        public void SelectMensa(string mensaId)
         {
             _selectedMensaId = mensaId;
         }
 
-        public static void ResetSelectedMensa()
+        public void ResetSelectedMensa()
         {
             _selectedMensaId = string.Empty;
         }
 
-        private static bool _hasLiveTile;
+        private PriceType _priceType = PriceType.Student;
 
-        public static bool HasLiveTile
+        public PriceType PriceType
         {
             get
             {
-                return _hasLiveTile;
+                return _priceType;
             }
             set
             {
-                _hasLiveTile = true;
+                SetProperty<PriceType>(ref _priceType, value, "PriceType");
             }
+        }
+
+        public void Refresh()
+        {
+            var mensa = GetMensa(SelectedMensaId);
+
+            mensa.ParseXml(mensa.Xml);
         }
     }
 }

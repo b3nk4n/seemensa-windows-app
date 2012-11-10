@@ -15,6 +15,8 @@ namespace SeeMensaWindows
     /// </summary>
     public sealed partial class ItemsPage : SeeMensaWindows.Common.LayoutAwarePage
     {
+        static MainViewModel _mainViewModel = MainViewModel.GetInstance;
+
         public ItemsPage()
         {
             this.InitializeComponent();
@@ -35,7 +37,7 @@ namespace SeeMensaWindows
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
-            var mainViewModel = MainViewModel.GetMensas((String)navigationParameter);
+            var mainViewModel = _mainViewModel.GetMensas((String)navigationParameter);
             this.DefaultViewModel["Days"] = mainViewModel;
         }
 
@@ -50,7 +52,7 @@ namespace SeeMensaWindows
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
             var mensaId = ((MensaItemViewModel)e.ClickedItem).UniqueId;
-            MainViewModel.SelectMensa(mensaId);
+            _mainViewModel.SelectMensa(mensaId);
             this.Frame.Navigate(typeof(SplitPage), mensaId);
         }
 

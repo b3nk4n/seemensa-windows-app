@@ -17,6 +17,8 @@ namespace SeeMensaWindows
     /// </summary>
     sealed partial class App : Application
     {
+        static MainViewModel _mainViewModel = MainViewModel.GetInstance;
+
         /// <summary>
         /// Initializes the singleton Application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -37,17 +39,17 @@ namespace SeeMensaWindows
             // Class name
             builder.TaskEntryPoint = "TileBackground.TileBackgroundAgent";
 
-            IBackgroundTrigger trigger = new TimeTrigger(15, true);
+            IBackgroundTrigger trigger = new MaintenanceTrigger(15, false);
             builder.SetTrigger(trigger);
             IBackgroundCondition condition = new SystemCondition(SystemConditionType.InternetAvailable);
-            builder.AddCondition(condition);
+            builder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
 
             IBackgroundTaskRegistration task = builder.Register();
-
             //You have the option of implementing these events to do something upon completion
             //task.Progress += task_Progress;
             //task.Completed += task_Completed;
         }
+
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
@@ -93,10 +95,10 @@ namespace SeeMensaWindows
             }
             if (rootFrame.Content == null)
             {
-                if (MainViewModel.IsMensaSelected)
+                if (_mainViewModel.IsMensaSelected)
                 {
                     // Redirect to the split page, if a mensa was already selected
-                    rootFrame.Navigate(typeof(SplitPage), MainViewModel.SelectedMensaId);
+                    rootFrame.Navigate(typeof(SplitPage), _mainViewModel.SelectedMensaId);
                 }
                 else
                 {

@@ -1,4 +1,6 @@
 ﻿using SeeMensaWindows.Common.DataModel;
+using SeeMensaWindows.Common.Storage;
+using System;
 using Windows.UI.ApplicationSettings;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -10,11 +12,47 @@ namespace SeeMensaWindows.Views
 {
     public sealed partial class AppSettingsFlyout : UserControl
     {
+        static MainViewModel _mainViewModel = MainViewModel.GetInstance;
+
         public AppSettingsFlyout()
         {
             this.InitializeComponent();
 
-            this.tsLiveTile.IsOn = MainViewModel.HasLiveTile;
+            loadPriceTypes();
+
+            Unloaded += AppSettingsFlyout_Unloaded;
+
+            rbStudent.Checked += PriceRadioButtonChecked;
+            rbGuest.Checked += PriceRadioButtonChecked;
+            rbEmployee.Checked += PriceRadioButtonChecked;
+            rbPupil.Checked += PriceRadioButtonChecked;
+        }
+
+        void AppSettingsFlyout_Unloaded(object sender, RoutedEventArgs e)
+        {
+            AppStorage.Save();
+        }
+
+        private void loadPriceTypes()
+        {
+            switch (_mainViewModel.PriceType)
+            {
+                case PriceType.Student:
+                    rbStudent.IsChecked = true;
+                    break;
+
+                case PriceType.Guest:
+                    rbGuest.IsChecked = true;
+                    break;
+
+                case PriceType.Employee:
+                    rbEmployee.IsChecked = true;
+                    break;
+
+                case PriceType.Pupil:
+                    rbPupil.IsChecked = true;
+                    break;
+            }
         }
 
         private void BackClicked(object sender, RoutedEventArgs e)
@@ -29,7 +67,7 @@ namespace SeeMensaWindows.Views
 
         private void SelectMensaClicked(object sender, RoutedEventArgs e)
         {
-            MainViewModel.ResetSelectedMensa();
+            _mainViewModel.ResetSelectedMensa();
             
             Frame rootFrame = Window.Current.Content as Frame;
 
@@ -38,14 +76,17 @@ namespace SeeMensaWindows.Views
             this.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
         }
 
-        private void tsLiveTileToggled(object sender, RoutedEventArgs e)
+        private void PriceRadioButtonChecked(object sender, RoutedEventArgs e)
         {
-            var toggle = sender as ToggleSwitch;
+            RadioButton rb = sender as RadioButton;
 
-            if (toggle != null)
+            if (rb != null)
             {
-                MainViewModel.HasLiveTile = toggle.IsOn;
+                _mainViewModel.PriceType = (PriceType)Enum.Parse(typeof(PriceType), (string)rb.Tag, true);
+
+                tbSettingsInformation.Text = "Die Änderungen werden beim nächsten Start der Anwendung übernommen.";
             }
+            
         }
     }
 }
