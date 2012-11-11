@@ -8,106 +8,8 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-    <UserControl.Resources>
-        <Style x:Key="SettingsBackButtonStyle" TargetType="Button">
-            <Setter Property="MinWidth" Value="0"/>
-            <Setter Property="FontFamily" Value="Segoe UI Symbol"/>
-            <Setter Property="FontWeight" Value="Normal"/>
-            <Setter Property="FontSize" Value="26.66667"/>
-            <Setter Property="AutomationProperties.AutomationId" Value="BackButton"/>
-            <Setter Property="AutomationProperties.Name" Value="Back"/>
-            <Setter Property="AutomationProperties.ItemType" Value="Navigation Button"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Grid x:Name="RootGrid" Width="30" Height="30">
-                            <Grid Margin="-6,-6,0,0">
-                                <TextBlock x:Name="BackgroundGlyph" Text="&#xE0D4;" Foreground="Gray"/>
-                                <TextBlock x:Name="NormalGlyph" Text="{StaticResource BackButtonSnappedGlyph}" Foreground="White"/>
-                                <TextBlock x:Name="ArrowGlyph" Text="&#xE0C4;" Foreground="Black" Opacity="0"/>
-                            </Grid>
-                            <Rectangle
-                            x:Name="FocusVisualWhite"
-                            IsHitTestVisible="False"
-                            Stroke="White"
-                            StrokeEndLineCap="Square"
-                            StrokeDashArray="1,1"
-                            Opacity="0"
-                            StrokeDashOffset="1.5"/>
-                            <Rectangle
-                            x:Name="FocusVisualBlack"
-                            IsHitTestVisible="False"
-                            Stroke="White"
-                            StrokeEndLineCap="Square"
-                            StrokeDashArray="1,1"
-                            Opacity="0"
-                            StrokeDashOffset="0.5"/>
-
-                            <VisualStateManager.VisualStateGroups>
-                                <VisualStateGroup x:Name="CommonStates">
-                                    <VisualState x:Name="Normal" />
-                                    <VisualState x:Name="PointerOver">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="LightGray"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="NormalGlyph" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="White"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Pressed">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundGlyph" Storyboard.TargetProperty="Foreground">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="White"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                            <DoubleAnimation
-                                            Storyboard.TargetName="ArrowGlyph"
-                                            Storyboard.TargetProperty="Opacity"
-                                            To="1"
-                                            Duration="0"/>
-                                            <DoubleAnimation
-                                            Storyboard.TargetName="NormalGlyph"
-                                            Storyboard.TargetProperty="Opacity"
-                                            To="0"
-                                            Duration="0"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Disabled">
-                                        <Storyboard>
-                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="RootGrid" Storyboard.TargetProperty="Visibility">
-                                                <DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
-                                            </ObjectAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </VisualState>
-                                </VisualStateGroup>
-                                <VisualStateGroup x:Name="FocusStates">
-                                    <VisualState x:Name="Focused">
-                                        <Storyboard>
-                                            <DoubleAnimation
-                                            Storyboard.TargetName="FocusVisualWhite"
-                                            Storyboard.TargetProperty="Opacity"
-                                            To="1"
-                                            Duration="0"/>
-                                            <DoubleAnimation
-                                            Storyboard.TargetName="FocusVisualBlack"
-                                            Storyboard.TargetProperty="Opacity"
-                                            To="1"
-                                            Duration="0"/>
-                                        </Storyboard>
-                                    </VisualState>
-                                    <VisualState x:Name="Unfocused" />
-                                    <VisualState x:Name="PointerFocused" />
-                                </VisualStateGroup>
-                            </VisualStateManager.VisualStateGroups>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </UserControl.Resources>
     <Border BorderBrush="Black" BorderThickness="1,0,0,0">
-        <Grid Background="DarkGray" VerticalAlignment="Stretch">
+        <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}" VerticalAlignment="Stretch">
             <!-- Root grid definition -->
             <Grid.RowDefinitions>
                 <RowDefinition Height="80" />
@@ -115,7 +17,7 @@
             </Grid.RowDefinitions>
 
             <!-- Header area for panel -->
-            <Grid Background="Gray" Grid.Row="0">
+            <Grid Background="{StaticResource SeeMensaColorBrush}" Grid.Row="0">
 
                 <Grid Margin="40,32,17,13">
 

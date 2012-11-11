@@ -42,7 +42,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Back button and page title -->
-        <Grid x:Name="titlePanel" Grid.ColumnSpan="2">
+        <Grid x:Name="titlePanel" Grid.ColumnSpan="2" Background="{StaticResource SeeMensaColorBrush}" Margin="0,0,0,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
@@ -52,7 +52,7 @@
                 Click="GoBack"
                 IsEnabled="{Binding DefaultViewModel.CanGoBack, ElementName=pageRoot}"
                 Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PageHeaderTextStyle}"/>
+            <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource PageHeaderTextStyle}" TextWrapping="Wrap"/>
         </Grid>
 
         <ad:AdControl
@@ -72,12 +72,13 @@
             AutomationProperties.Name="Days"
             TabIndex="1"
             Grid.Row="1"
-            Margin="-10,-10,0,0"
+            Margin="-10,0,0,0"
             Padding="20,0,0,60"
             ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
             IsSwipeEnabled="False"
             SelectionChanged="ItemListView_SelectionChanged"
-            ItemTemplate="{StaticResource Standard130ItemTemplate}"/>
+            ItemTemplate="{StaticResource Standard130ItemTemplate}"
+            ItemContainerStyle="{StaticResource DayListViewItemStyle}"/>
 
         <!-- Details for selected item -->
         <ScrollViewer
@@ -91,9 +92,10 @@
             d:DataContext="{Binding AllMensas[0].Days[0], Source={d:DesignInstance Type=data:MainViewModel, IsDesignTimeCreatable=True}}"
             Style="{StaticResource VerticalScrollViewerStyle}">
 
-            <Grid x:Name="itemDetailGrid" Margin="0,0,0,0">
-                <ItemsControl x:Name="mealsList" Margin="0,0,0,0" ItemsSource="{Binding Meals}"
-                          ItemTemplate="{StaticResource MealsItemTemplate}"/>
+            <Grid x:Name="itemDetailGrid">
+                <ItemsControl x:Name="mealsList" ItemsSource="{Binding Meals}"
+                          ItemTemplate="{StaticResource MealsItemTemplate}">
+                </ItemsControl>
             </Grid>
         </ScrollViewer>
 

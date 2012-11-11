@@ -53,7 +53,15 @@ namespace SeeMensaWindows.Common.Storage
                 var xml = await EasyStorage.LoadLarge<string>(mensa.UniqueId + "xml");
                 if (!string.IsNullOrEmpty(xml) && mensa.UniqueId.Equals(_mainViewModel.SelectedMensaId))
                 {
-                    mensa.ParseXml(xml);
+                    try
+                    {
+                        mensa.ParseXml(xml);
+                    }
+                    catch (Exception)
+                    {
+                        // Reset last update flag, if loading the xml file produces errors.
+                        mensa.LastUpdate = new DateTime();
+                    }
                 }
             } 
         }

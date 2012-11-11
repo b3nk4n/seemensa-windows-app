@@ -211,7 +211,8 @@ namespace SeeMensaWindows
             {
                 // When logical page navigation is not in effect, or when there is no selected
                 // item, use the default back button behavior.
-                base.GoBack(sender, e);
+                //base.GoBack(sender, e);
+                Frame.Navigate(typeof(ItemsPage), "AllMensas");
             }
         }
 
@@ -228,7 +229,8 @@ namespace SeeMensaWindows
             // Update the back button's enabled state when the view state changes
             var logicalPageBack = this.UsingLogicalPageNavigation(viewState) && this.itemListView.SelectedItem != null;
             var physicalPageBack = this.Frame != null && this.Frame.CanGoBack;
-            this.DefaultViewModel["CanGoBack"] = logicalPageBack || physicalPageBack;
+            //this.DefaultViewModel["CanGoBack"] = logicalPageBack || physicalPageBack;
+            this.DefaultViewModel["CanGoBack"] = true;
 
             // Determine visual states for landscape layouts based not on the view state, but
             // on the width of the window.  This page has one layout that is appropriate for
