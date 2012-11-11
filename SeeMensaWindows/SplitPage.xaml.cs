@@ -306,15 +306,5 @@ namespace SeeMensaWindows
         }
 
         #endregion
-
-
-        internal void Refresh()
-        {
-            int selectedIndex = itemListView.SelectedIndex;
-
-            _mainViewModel.Refresh();
-
-            itemListView.SelectedIndex = selectedIndex;
-        }
     }
 }

@@ -20,7 +20,7 @@ namespace SeeMensaWindows.Common.DataModel
             : base(uniqueId)
         {
             _category = category;
-            _title = title.Replace("&quot;","\"");
+            _title = title;
             _description = description;
             _kennzeichnungen = kennzeichnung;
             _beilagen = beilagen;
@@ -45,13 +45,28 @@ namespace SeeMensaWindows.Common.DataModel
             var preis4 = xmlMeal.Element("preis4").Value;
             var einheit = xmlMeal.Element("einheit").Value;
 
-            // Replace tasg in title (= meals description)
+            // Replace tags in title (= meals description)
             if (!string.IsNullOrEmpty(kennzeichnungen))
             {
                 title = title.Replace(string.Format(" ({0})", kennzeichnungen), "");
             }
 
             var signs = ReadSigns(ref title);
+
+            // Check title and pricing
+            title = title.Replace("&quot;", "\"");
+            if (preis1.Equals("0,00"))
+            {
+                string end = title.Substring(title.Length - 4);
+                float res;
+                if (float.TryParse(end, out res))
+                {
+                    preis1 = preis2 = preis3 = preis4 = end;
+                }
+
+                title = title.Substring(0, title.Length - 4);
+            }
+            title = title.TrimEnd();
 
             return new MealViewModel(category.GetHashCode().ToString(),
                 category,
@@ -406,6 +421,44 @@ namespace SeeMensaWindows.Common.DataModel
                 title = title.Substring(0, title.Length - 2);
                 signList.Add("Po");
                 signList.Add("F");
+            }
+
+            // Beef/Pig
+            if (title.Contains(" R/Sch "))
+            {
+                title = title.Replace(" (R/Sch) ", " ");
+                signList.Add("R");
+                signList.Add("S");
+            }
+            else if (title.Contains(" (R/Sch)"))
+            {
+                title = title.Replace(" (R/Sch)", "");
+                signList.Add("R");
+                signList.Add("S");
+            }
+            else if (title.EndsWith(" R/Sch"))
+            {
+                title = title.Substring(0, title.Length - 4);
+                signList.Add("R");
+                signList.Add("S");
+            }
+            else if (title.Contains(" B/P "))
+            {
+                title = title.Replace(" R/P ", " ");
+                signList.Add("B");
+                signList.Add("P");
+            }
+            else if (title.Contains(" (B/P)"))
+            {
+                title = title.Replace(" (B/P)", "");
+                signList.Add("B");
+                signList.Add("P");
+            }
+            else if (title.EndsWith(" B/P"))
+            {
+                title = title.Substring(0, title.Length - 2);
+                signList.Add("B");
+                signList.Add("P");
             }
 
             var sb = new StringBuilder();
