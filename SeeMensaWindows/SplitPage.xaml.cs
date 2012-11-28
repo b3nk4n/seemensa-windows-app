@@ -10,6 +10,9 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using SeeMensaWindows.Common.DataAccess;
+using SeeMensaWindows.Common.Helpers;
+using SeeMensaWindows.Common;
+using System.Windows.Input;
 
 // The Split Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234234
 
@@ -22,7 +25,6 @@ namespace SeeMensaWindows
     public sealed partial class SplitPage : SeeMensaWindows.Common.LayoutAwarePage
     {
         static MainViewModel _mainViewModel = MainViewModel.GetInstance;
-        LiveTileManager _liveTileManager;
 
         public SplitPage()
         {
@@ -31,8 +33,6 @@ namespace SeeMensaWindows
 
             // App settings in charms bar
             SettingsPane.GetForCurrentView().CommandsRequested += App_CommandsRequested;
-
-            _liveTileManager = new LiveTileManager(Windows.UI.Notifications.TileTemplateType.TileWideText09, Windows.UI.Notifications.TileTemplateType.TileSquareText02, true);
         }
 
         void SplitPage_Loaded(object sender, RoutedEventArgs e)
@@ -43,19 +43,15 @@ namespace SeeMensaWindows
             UpdateLiveTile();
         }
 
+        /// <summary>
+        /// Updates the live tile.
+        /// </summary>
         private void UpdateLiveTile()
         {
             var mensa = DefaultViewModel["Mensa"] as MensaItemViewModel;
-            if (mensa != null && mensa.Days.Count > 0)
+            if (mensa != null && _mainViewModel.IsMensaSelected)
             {
-                var todayMeals = mensa.Days[0].Meals;
-
-                for (int i = 0; (i < todayMeals.Count) && i < 5; i++)
-                {
-                    _liveTileManager.Tiles.Add(new LiveTileData(todayMeals[i].Category, todayMeals[i].Title, null));
-                }
-
-                _liveTileManager.Update();
+                SeeMensaLiveTileHelper.UpdateLiveTile(mensa);
             }
         }
 
@@ -87,6 +83,7 @@ namespace SeeMensaWindows
             var mensa = _mainViewModel.GetMensa((String)navigationParameter);
             this.DefaultViewModel["Mensa"] = mensa;
             this.DefaultViewModel["Days"] = mensa.Days;
+            //this.DefaultViewModel["RefreshCommand"] = _mainViewModel.RefreshCommand;
 
             if (pageState == null)
             {
@@ -189,7 +186,8 @@ namespace SeeMensaWindows
             // an item is selected this has the effect of changing from displaying the item list
             // to showing the selected item's details.  When the selection is cleared this has the
             // opposite effect.
-            if (this.UsingLogicalPageNavigation()) this.InvalidateVisualState();
+            if (this.UsingLogicalPageNavigation())
+                this.InvalidateVisualState();
         }
 
         /// <summary>
@@ -308,5 +306,10 @@ namespace SeeMensaWindows
         }
 
         #endregion
+
+        private void RefreshClicked(object sender, RoutedEventArgs e)
+        {
+            refresh();
+        }
     }
 }

@@ -7,6 +7,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.ApplicationModel.Background;
+using SeeMensaWindows.Common.Agents;
 
 // The Split App template is documented at http://go.microsoft.com/fwlink/?LinkId=234228
 
@@ -17,6 +18,9 @@ namespace SeeMensaWindows
     /// </summary>
     sealed partial class App : Application
     {
+        public static string AGENT_NAME = "seeMENSA Live Tile";
+        public static string AGENT_ENTRY_POINT = "TileBackground.TileBackgroundAgent";
+
         static MainViewModel _mainViewModel = MainViewModel.GetInstance;
 
         /// <summary>
@@ -30,27 +34,6 @@ namespace SeeMensaWindows
             this.Resuming += OnResuming;
         }
 
-        private void RegisterBackgroundTasks()
-        {
-            BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
-
-            // Friendly string name identifying the background task
-            builder.Name = "seeMENSA Live Tile";
-            // Class name
-            builder.TaskEntryPoint = "TileBackground.TileBackgroundAgent";
-
-            IBackgroundTrigger trigger = new MaintenanceTrigger(15, false);
-            builder.SetTrigger(trigger);
-            IBackgroundCondition condition = new SystemCondition(SystemConditionType.InternetAvailable);
-            builder.AddCondition(new SystemCondition(SystemConditionType.InternetAvailable));
-
-            IBackgroundTaskRegistration task = builder.Register();
-            //You have the option of implementing these events to do something upon completion
-            //task.Progress += task_Progress;
-            //task.Completed += task_Completed;
-        }
-
-
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used when the application is launched to open a specific file, to display
@@ -62,7 +45,7 @@ namespace SeeMensaWindows
             // Load the stored settings
             await AppStorage.Load();
 
-            RegisterBackgroundTasks();
+            BackgroundTask.RegisterTimedBackgroundTask(AGENT_NAME, AGENT_ENTRY_POINT, 60);
 
             Frame rootFrame = Window.Current.Content as Frame;
 

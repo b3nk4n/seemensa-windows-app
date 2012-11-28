@@ -103,7 +103,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Common\SettingsPaneManager.cs" />
+    <Compile Include="Common\DelegateCommand.cs" />
     <Compile Include="Helpers\Converter.cs" />
     <Compile Include="Helpers\EasyStorage.cs" />
     <Compile Include="Helpers\SettingsPaneManager.cs" />

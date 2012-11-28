@@ -102,8 +102,10 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Agents\BackgroundTask.cs" />
     <Compile Include="DataAccess\HttpWebLoader.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
+    <Compile Include="Helpers\SeeMensaLiveTileHelper.cs" />
     <Compile Include="LiveTile\LiveTileData.cs" />
     <Compile Include="LiveTile\LiveTileManager.cs" />
     <Compile Include="Storage\AppStorage.cs" />
@@ -117,6 +119,7 @@
     <Compile Include="Helpers\Converter.cs" />
     <Compile Include="Helpers\EasyStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Universal\DelegateCommand.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

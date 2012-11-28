@@ -5,12 +5,12 @@ using SeeMensaWindows.Common.Storage;
 using SeeMensaWindows.Common.DataModel;
 using SeeMensaWindows.Common.LiveTile;
 using SeeMensaWindows.Common.DataAccess;
+using SeeMensaWindows.Common.Helpers;
 
 namespace TileBackground
 {
     public sealed class TileBackgroundAgent : IBackgroundTask
     {
-        LiveTileManager _liveTileManager;
         static MainViewModel _mainViewModel = MainViewModel.GetInstance;
 
         /// <summary>
@@ -22,18 +22,22 @@ namespace TileBackground
         public async void Run(IBackgroundTaskInstance taskInstance)
         {
             BackgroundTaskDeferral deferral = taskInstance.GetDeferral();
-            
-            // Loads the data.
-            await AppStorage.Load();
 
-            if (_mainViewModel.IsMensaSelected)
+            try
             {
-                var mensa = _mainViewModel.GetMensa(_mainViewModel.SelectedMensaId);
+                // Loads the data.
+                await AppStorage.Load();
 
-                await CheckLoadXml(mensa);
+                if (_mainViewModel.IsMensaSelected)
+                {
+                    var mensa = _mainViewModel.GetMensa(_mainViewModel.SelectedMensaId);
 
-                UpdateLiveTile(mensa);
+                    await CheckLoadXml(mensa);
+
+                    UpdateLiveTile(mensa);
+                }
             }
+            catch (Exception) { }
             
             deferral.Complete();
         }
@@ -50,7 +54,8 @@ namespace TileBackground
 
             TimeSpan delay = now.Subtract(lastUpdate);
 
-            if (delay.Days >= 7)
+            //if (delay.Days >= 7) // TODO: just for testing!
+            if (delay.Days >= 0)
             {
                 var xml = await DownloadAsync(mensa.InterfaceUriDe);
 
@@ -69,19 +74,7 @@ namespace TileBackground
         {
             if (_mainViewModel.IsMensaSelected)
             {
-                if (mensa.Days.Count > 0)
-                {
-                    _liveTileManager = new LiveTileManager(Windows.UI.Notifications.TileTemplateType.TileWideText09, Windows.UI.Notifications.TileTemplateType.TileSquareText02, true);
-
-                    var todayMeals = mensa.Days[0].Meals;
-
-                    for (int i = 0; (i < todayMeals.Count) && i < 5; i++)
-                    {
-                        _liveTileManager.Tiles.Add(new LiveTileData(todayMeals[i].Category, todayMeals[i].Title, null));
-                    }
-
-                    _liveTileManager.Update();
-                }
+                SeeMensaLiveTileHelper.UpdateLiveTile(mensa);
             }
         }
 

@@ -21,6 +21,16 @@
             d:Source="{Binding AllMensas[0].Days, Source={d:DesignInstance Type=data:MainViewModel, IsDesignTimeCreatable=True}}"/>
     </Page.Resources>
 
+    <Page.BottomAppBar>
+        <AppBar>
+            <Grid>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Height="126">
+                    <Button VerticalAlignment="Center" Style="{StaticResource RefreshAppBarButtonStyle}" Click="RefreshClicked" ></Button>
+                </StackPanel>
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
+
     <!--
         This grid acts as a root panel for the page that defines two rows:
         * Row 0 contains the back button and page title

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SeeMensaWindows.Common.DataModel;
+using System;
 using System.Collections.Generic;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
