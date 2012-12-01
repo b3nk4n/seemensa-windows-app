@@ -51,8 +51,8 @@
                     </TransitionCollection>
                 </Grid.Transitions>
                 <StackPanel Margin="0,0,0,0">
-                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="20" Text="If you have any further questions, ideas or problems with seeMENSA, please do not hesitate to contact us."/>
-                    <Button HorizontalAlignment="Center" FontWeight="Bold" Margin="0,5,0,5" BorderThickness="0" Click="SupportLinkClicked_Click">
+                    <TextBlock TextWrapping="Wrap" TextAlignment="Center" FontSize="20" Text="Sollten Sie Probleme, Fragen oder Wünsche zu seeMENSA haben, stehen wir Ihnen gerne zur Verfügung."/>
+                    <Button HorizontalAlignment="Center" FontWeight="Bold" Margin="0,15,0,5" BorderThickness="0" Click="SupportLinkClicked_Click">
                         <TextBlock TextAlignment="Center" FontSize="18" FontWeight="Bold" Text="bensaute@htwg-konstanz.de"/>
                     </Button>
                 </StackPanel>

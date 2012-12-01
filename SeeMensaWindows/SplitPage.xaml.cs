@@ -38,9 +38,6 @@ namespace SeeMensaWindows
         void SplitPage_Loaded(object sender, RoutedEventArgs e)
         {
             EnsureOneItemIsSelected();
-
-            // Update Live Tile ... TODO: move this code to the right position and refactor it!
-            UpdateLiveTile();
         }
 
         /// <summary>
@@ -293,6 +290,8 @@ namespace SeeMensaWindows
             currentMensa.LastUpdate = DateTime.Now;
 
             EnsureOneItemIsSelected();
+
+            UpdateLiveTile();
 
             AppStorage.Save();
         }

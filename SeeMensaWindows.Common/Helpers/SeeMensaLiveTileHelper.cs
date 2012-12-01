@@ -22,8 +22,7 @@ namespace SeeMensaWindows.Common.Helpers
 
                 for (int i = 0; (i < todayMeals.Count) && i < MAX_TILE_PAGES; i++)
                 {
-                    //_liveTileManager.Tiles.Add(new LiveTileData(todayMeals[i].Category, todayMeals[i].Title, null));
-                    liveTileManager.Tiles.Add(new LiveTileData(todayMeals[i].Category, "Agend at: " + DateTime.Now.ToString(), null));
+                    liveTileManager.Tiles.Add(new LiveTileData(todayMeals[i].Category, todayMeals[i].Title, null));
                 }
 
                 liveTileManager.Update();

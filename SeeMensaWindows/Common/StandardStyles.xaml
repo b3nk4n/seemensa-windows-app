@@ -1646,16 +1646,34 @@
     <!-- Item templates -->
 
     <!-- Grid-appropriate 250 pixel square item template as seen in the GroupedItemsPage and ItemsPage -->
-    <DataTemplate x:Key="Standard250x250ItemTemplate">
-        <Grid HorizontalAlignment="Left" Width="250" Height="250">
-            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
-                <Image Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
-            </Border>
-            <StackPanel VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
-                <TextBlock Text="{Binding Name}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Height="60" Margin="15,0,15,0"/>
-                <TextBlock Text="{Binding Address1}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
-            </StackPanel>
+    <DataTemplate x:Key="Standard280x280ItemTemplate">
+        <Grid HorizontalAlignment="Left" Width="280" Height="280" Background="{StaticResource SeeMensaColorBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="240" />
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            <Image Grid.RowSpan="2" Source="{Binding Image}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" Height="180" Width="180"/>
+            <TextBlock Grid.Row="1" Text="{Binding Name}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" FontSize="17" Margin="20,0,20,0"/>
         </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Standard80ItemTemplate">
+        <Border Background="{StaticResource SeeMensaColorBrush}" Width="300">
+            <Grid Margin="10,10,10,15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" Source="{Binding Image}" Stretch="UniformToFill"
+                   VerticalAlignment="Center" HorizontalAlignment="Center" Height="80" Width="80"/>
+                <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Name}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" FontSize="16" Margin="20,0,20,0"/>
+                    <TextBlock Text="{Binding Address1}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" FontSize="11" Margin="20,0,20,0"/>
+                    <TextBlock Text="{Binding Address2}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" FontSize="11" Margin="20,0,20,0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
     </DataTemplate>
 
     <!-- Grid-appropriate 500 by 130 pixel item template as seen in the GroupDetailPage -->
@@ -1695,21 +1713,9 @@
         List-appropriate 80 pixel high item template as seen in the SplitPage when Filled, and
         the following pages when snapped: GroupedItemsPage, GroupDetailPage, and ItemsPage
     -->
-    <DataTemplate x:Key="Standard80ItemTemplate">
-        <Grid Margin="6">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Column="1" Margin="10,0,0,0">
-                <TextBlock Text="{Binding Day, Converter={StaticResource dayConverter}}" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
-                <TextBlock Text="{Binding Day, Converter={StaticResource dateConverter}}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
-            </StackPanel>
-        </Grid>
-    </DataTemplate>
 
     <!-- Grid-appropriate 300 by 70 pixel item template as seen in the SearchResultsPage -->
-    <DataTemplate x:Key="StandardSmallIcon300x70ItemTemplate">
+    <!--<DataTemplate x:Key="StandardSmallIcon300x70ItemTemplate">
         <Grid Width="294" Margin="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -1724,7 +1730,7 @@
                 <TextBlock Text="{Binding Description}" Style="{StaticResource BodyTextStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}" TextWrapping="NoWrap"/>
             </StackPanel>
         </Grid>
-    </DataTemplate>
+    </DataTemplate>-->
 
     <!-- List-appropriate 70 pixel high item template as seen in the SearchResultsPage when Snapped -->
     <DataTemplate x:Key="StandardSmallIcon70ItemTemplate">
@@ -2232,7 +2238,7 @@
                                 <Grid x:Name="InnerDragContent">
                                     <Rectangle x:Name="PointerOverBorder" Fill="{StaticResource ListViewItemPointerOverBackgroundThemeBrush}" IsHitTestVisible="False" Opacity="0"/>
                                     <Rectangle x:Name="FocusVisual" IsHitTestVisible="False" Opacity="0" Stroke="{StaticResource ListViewItemFocusBorderThemeBrush}" StrokeThickness="2"/>
-                                    <Border x:Name="SelectionBackground" HorizontalAlignment="Right" Opacity="0" IsHitTestVisible="False" VerticalAlignment="Top">
+                                    <Border x:Name="SelectionBackground" HorizontalAlignment="Left" Opacity="0" IsHitTestVisible="False" VerticalAlignment="Top">
                                         <Grid x:Name="SelectionBackgroundInner"  Width="472" Height="100">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="*" />

@@ -62,10 +62,18 @@
                 
                 <StackPanel Grid.Row="1" Style="{StaticResource SettingsElementPanel}">
                     <TextBlock  Text="Preis" Style="{StaticResource SettingsTitleText}"/>
-                    <RadioButton x:Name="rbStudent" Content="Student" GroupName="Price" Style="{StaticResource SettingsRadioButtonStyle}" Tag="Student" />
-                    <RadioButton x:Name="rbGuest" Content="Gast" GroupName="Price" Style="{StaticResource SettingsRadioButtonStyle}" Tag="Guest" />
-                    <RadioButton x:Name="rbEmployee" Content="Mitarbeiter" GroupName="Price" Style="{StaticResource SettingsRadioButtonStyle}" Tag="Employee" />
-                    <RadioButton x:Name="rbPupil" Content="Schüler" GroupName="Price" Style="{StaticResource SettingsRadioButtonStyle}" Tag="Pupil" />
+                    <RadioButton x:Name="rbStudent" GroupName="Price" Style="{StaticResource SettingsRadioButtonStyle}" Tag="Student" >
+                        <TextBlock Text="Student" Margin="10,0,0,0" />
+                    </RadioButton>
+                    <RadioButton x:Name="rbGuest" GroupName="Price" Style="{StaticResource SettingsRadioButtonStyle}" Tag="Guest">
+                        <TextBlock Text="Gast" Margin="10,0,0,0" />
+                    </RadioButton>
+                    <RadioButton x:Name="rbEmployee" GroupName="Price" Style="{StaticResource SettingsRadioButtonStyle}" Tag="Employee">
+                        <TextBlock Text="Mitarbeiter" Margin="10,0,0,0" />
+                    </RadioButton>
+                    <RadioButton x:Name="rbPupil" GroupName="Price" Style="{StaticResource SettingsRadioButtonStyle}" Tag="Pupil">
+                        <TextBlock Text="Schüler" Margin="10,0,0,0" />
+                    </RadioButton>
                     <TextBlock x:Name="tbSettingsInformation"  Style="{StaticResource SettingsInformationText}"/>
                 </StackPanel>
                     

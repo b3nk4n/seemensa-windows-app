@@ -58,7 +58,7 @@
                     <Border Width="150" Height="150" Margin="10">
                         <Image Source="/Assets/Logo.png"/>
                     </Border>
-                    <TextBlock Text="for Windows 8" TextAlignment="Center" FontSize="26"/>
+                    <TextBlock Text="für Windows 8" TextAlignment="Center" FontSize="26"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock Text="Version" FontSize="26"/>
                         <TextBlock x:Name="tbVersion" Text="???" Margin="10,0,0,0" FontSize="26"/>

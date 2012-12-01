@@ -39,17 +39,16 @@
             AutomationProperties.Name="Items"
             TabIndex="1"
             Grid.Row="1"
-            Margin="0,50,0,0"
             HorizontalAlignment="Center"
-            VerticalAlignment="Top"
+            VerticalAlignment="Center"
             ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
-            ItemTemplate="{StaticResource Standard250x250ItemTemplate}"
+            ItemTemplate="{StaticResource Standard280x280ItemTemplate}"
             SelectionMode="None"
             IsSwipeEnabled="false"
             IsItemClickEnabled="True"
             ItemClick="ItemView_ItemClick"
-            Width="520"
-            Height="530"/>
+            Width="580"
+            Height="590"/>
 
         <!-- Vertical scrolling list only used when snapped -->
         <ListView
@@ -59,7 +58,6 @@
             TabIndex="1"
             Grid.Row="1"
             Visibility="Collapsed"
-            Margin="0,-10,0,0"
             Padding="10,0,0,60"
             ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
             ItemTemplate="{StaticResource Standard80ItemTemplate}"
@@ -69,13 +67,15 @@
             ItemClick="ItemView_ItemClick"/>
 
         <!-- Back button and page title -->
-        <Grid>
+        <Grid Background="{StaticResource SeeMensaColorBrush}" Margin="0,0,0,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="120"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}" Visibility="Collapsed"/>
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>
+            <Image x:Name="titleLogo" Grid.Column="2" Source="Assets/Logo.png" Width="100" Height="100" Margin="0,0,15,0"/>
         </Grid>
         
         <VisualStateManager.VisualStateGroups>
@@ -106,7 +106,15 @@
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Style">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
                         </ObjectAnimationUsingKeyFrames>
-
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="(Grid.Column)">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="0"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="Margin">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="40,0,20,50"/>
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="pageTitle" Storyboard.TargetProperty="(Grid.ColumnSpan)">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="2"/>
+                        </ObjectAnimationUsingKeyFrames>
                         <ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">
                             <DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
                         </ObjectAnimationUsingKeyFrames>
