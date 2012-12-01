@@ -68,6 +68,12 @@ namespace SeeMensaWindows.Common.DataModel
             }
             title = title.TrimEnd();
 
+            // complete "Eing" to "Eingang"
+            if (title.EndsWith("Uni-Eing"))
+            {
+                title += "ang";
+            }
+
             return new MealViewModel(category.GetHashCode().ToString(),
                 category,
                 title,

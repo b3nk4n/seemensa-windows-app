@@ -113,7 +113,7 @@ namespace SeeMensaWindows
 
                 TimeSpan delay = now.Subtract(lastUpdate);
 
-                if (delay.Days >= 7)
+                if (delay.Days >= 5)
                 {
                     this.refresh();
                 }
@@ -187,7 +187,11 @@ namespace SeeMensaWindows
             // to showing the selected item's details.  When the selection is cleared this has the
             // opposite effect.
             if (this.UsingLogicalPageNavigation())
+            {
                 this.InvalidateVisualState();
+            }
+
+            ScrollMealListUp();
         }
 
         /// <summary>
@@ -230,6 +234,8 @@ namespace SeeMensaWindows
             //this.DefaultViewModel["CanGoBack"] = logicalPageBack || physicalPageBack;
             this.DefaultViewModel["CanGoBack"] = true;
 
+            ForceItemReload();
+
             // Determine visual states for landscape layouts based not on the view state, but
             // on the width of the window.  This page has one layout that is appropriate for
             // 1366 virtual pixels or wider, and another for narrower displays or when a snapped
@@ -237,6 +243,8 @@ namespace SeeMensaWindows
             if (viewState == ApplicationViewState.Filled ||
                 viewState == ApplicationViewState.FullScreenLandscape)
             {
+                EnsureOneItemIsSelected();
+
                 var windowWidth = Window.Current.Bounds.Width;
                 if (windowWidth >= 1366) return "FullScreenLandscapeOrWide";
                 return "FilledOrNarrow";
@@ -246,6 +254,23 @@ namespace SeeMensaWindows
             // suffix when viewing details instead of the list
             var defaultStateName = base.DetermineVisualState(viewState);
             return logicalPageBack ? defaultStateName + "_Detail" : defaultStateName;
+        }
+
+        /// <summary>
+        /// Forces a reload of the selected item.
+        /// </summary>
+        private void ForceItemReload()
+        {
+            itemListView.SelectionChanged -= ItemListView_SelectionChanged;
+            
+            if (itemListView.Items.Count > 0)
+            {
+                int selectedIndex = itemListView.SelectedIndex;
+                itemListView.SelectedIndex = -1;
+                itemListView.SelectedIndex = selectedIndex;
+            }
+
+            itemListView.SelectionChanged += ItemListView_SelectionChanged;
         }
 
         #endregion
@@ -310,6 +335,18 @@ namespace SeeMensaWindows
         private void RefreshClicked(object sender, RoutedEventArgs e)
         {
             refresh();
+            ScrollDayListUp();
+        }
+
+        private void ScrollMealListUp()
+        {
+            this.itemDetail.ScrollToVerticalOffset(0);
+        }
+
+        private void ScrollDayListUp()
+        {
+            if (itemListView.Items.Count > 0)
+                this.itemListView.ScrollIntoView(itemListView.Items[0], ScrollIntoViewAlignment.Leading);
         }
     }
 }

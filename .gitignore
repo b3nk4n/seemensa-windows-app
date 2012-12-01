@@ -6,3 +6,6 @@
 /TileBackground/bin/*
 /TileBackground/obj/*
 *.user
+*.dll
+*.pdb
+*.pri

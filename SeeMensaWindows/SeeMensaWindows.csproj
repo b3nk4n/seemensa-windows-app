@@ -103,7 +103,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Common\DelegateCommand.cs" />
+    <Compile Include="Converters\DateConverter.cs" />
+    <Compile Include="Converters\DayConverter.cs" />
     <Compile Include="Helpers\Converter.cs" />
     <Compile Include="Helpers\EasyStorage.cs" />
     <Compile Include="Helpers\SettingsPaneManager.cs" />

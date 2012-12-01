@@ -16,16 +16,16 @@ namespace SeeMensaWindows.Common.DataModel
     /// </summary>
     public class MensaItemViewModel : ViewModelDataCommon
     {
-        public MensaItemViewModel(string uniqueId, string name, Uri interfaceUriDe, string address1, string address2,
+        public MensaItemViewModel(string uniqueId, string name, string shortName, Uri interfaceUriDe, string address1, string address2,
                                   string imagePath)
             : base(uniqueId)
         {
             Days.CollectionChanged += ItemsCollectionChanged;
             _name = name;
+            _shortName = shortName;
             _interfaceUriDe = interfaceUriDe;
             _address1 = address1;
             _address2 = address2;
-            //_imagePath = imagePath;
             SetImage(imagePath);
         }
 
@@ -130,6 +130,15 @@ namespace SeeMensaWindows.Common.DataModel
             get
             {
                 return _name;
+            }
+        }
+
+        private string _shortName;
+        public string ShortName
+        {
+            get
+            {
+                return _shortName;
             }
         }
 

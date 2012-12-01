@@ -84,11 +84,16 @@ namespace SeeMensaWindows.Helpers
                 StorageFile file = await ApplicationData.Current.LocalFolder.GetFileAsync(Key);
                 using (IInputStream inStream = await file.OpenSequentialReadAsync())
                 {
-                    rr.Result = (T)serializer.ReadObject(inStream.AsStreamForRead());
+                    var readRes = inStream.AsStreamForRead();
+                    rr.Result = (T)serializer.ReadObject(readRes);
                 }
                 rr.Success = true;
             }
             catch (FileNotFoundException)
+            {
+                rr.Success = false;
+            }
+            catch (Exception)
             {
                 rr.Success = false;
             }

@@ -60,24 +60,28 @@ namespace SeeMensaWindows.Common.DataModel
         {
             var mensa1 = new MensaItemViewModel("unikn",
                         "Menseria Universität Konstanz",
+                        "Uni Konstanz",
                         new Uri("http://www.max-manager.de/daten-extern/seezeit/xml/mensa_giessberg/speiseplan.xml", UriKind.Absolute),
                         "Universitätsstraße 10",
                         "78464 Konstanz",
                         "Assets/unikn.png");
             var mensa2 = new MensaItemViewModel("htwgkn",
                     "Mensa HTWG Konstanz",
+                    "HTWG Konstanz",
                     new Uri("http://www.max-manager.de/daten-extern/seezeit/xml/mensa_htwg/speiseplan.xml", UriKind.Absolute),
                     "Alfred-Wachtel-Straße 12",
                     "78462 Konstanz",
                     "Assets/htwgkn.png");
             var mensa3 = new MensaItemViewModel("phwg",
                     "Mensa HS/PH Weingarten",
+                    "HS/PH Weingarten",
                     new Uri("http://www.max-manager.de/daten-extern/seezeit/xml/mensa_weingarten/speiseplan.xml", UriKind.Absolute),
                     "Doggenriedstraße 28",
                     "88250 Weingarten",
                     "Assets/phwg.png");
             var mensa4 = new MensaItemViewModel("unifn",
                     "Mensa Friedrichshafen",
+                    "ZU Friedrichshafen",
                     new Uri("http://www.max-manager.de/daten-extern/seezeit/xml/mensa_friedrichshafen/speiseplan.xml", UriKind.Absolute),
                     "Fallenbrunnen 2",
                     "88045 Friedrichshafen",

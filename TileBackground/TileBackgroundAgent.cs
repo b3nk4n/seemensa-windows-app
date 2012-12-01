@@ -54,8 +54,7 @@ namespace TileBackground
 
             TimeSpan delay = now.Subtract(lastUpdate);
 
-            //if (delay.Days >= 7) // TODO: just for testing!
-            if (delay.Days >= 0)
+            if (delay.Days >= 5)
             {
                 var xml = await DownloadAsync(mensa.InterfaceUriDe);
 

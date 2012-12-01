@@ -8,6 +8,8 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.ApplicationModel.Background;
 using SeeMensaWindows.Common.Agents;
+using System.Globalization;
+using System.Threading;
 
 // The Split App template is documented at http://go.microsoft.com/fwlink/?LinkId=234228
 
