@@ -45,12 +45,12 @@ namespace SeeMensaWindows.Common.LiveTile
         /// </summary>
         public void Update()
         {
+            var updater = TileUpdateManager.CreateTileUpdaterForApplication();
+            
+            updater.Clear();
+            
             if (Tiles.Count > 0)
             {
-                var updater = TileUpdateManager.CreateTileUpdaterForApplication();
-
-                updater.Clear();
-
                 for (int i = 0; i < Tiles.Count && i < 5; ++i)
                 {
                     TileNotification otherTile = CreateTileNotification(Tiles[i]);

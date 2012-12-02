@@ -1,5 +1,4 @@
-﻿using SeeMensaWindows.Common.LiveTile;
-using SeeMensaWindows.Common.DataModel;
+﻿using SeeMensaWindows.Common.DataModel;
 using SeeMensaWindows.Helpers;
 using SeeMensaWindows.Common.Storage;
 using System;
@@ -12,7 +11,7 @@ using Windows.UI.Xaml.Controls;
 using SeeMensaWindows.Common.DataAccess;
 using SeeMensaWindows.Common.Helpers;
 using SeeMensaWindows.Common;
-using System.Windows.Input;
+using Windows.UI.Popups;
 
 // The Split Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234234
 
@@ -281,17 +280,52 @@ namespace SeeMensaWindows
 
             Uri uri = currentMensa.InterfaceUriDe;
 
-            var xml = await DownloadAsync(uri);
+            try
+            {
+                if (InternetAccessHelper.IsInternet())
+                {
+                    var xml = await DownloadAsync(uri);
 
-            currentMensa.ParseXml(xml);
+                    currentMensa.ParseXml(xml);
 
-            currentMensa.LastUpdate = DateTime.Now;
+                    currentMensa.LastUpdate = DateTime.Now;
 
-            EnsureOneItemIsSelected();
+                    EnsureOneItemIsSelected(); 
+                }
+                else
+                {
+                    currentMensa.ParseXml(string.Empty);
+                    ShowNoDataDialog("Sie benötigen eine Internetverbindung, um die Daten aktualisieren zu können.", "Achtung");
+                }
+            }
+            catch (Exception)
+            {
+                currentMensa.ParseXml(string.Empty);
+                ShowNoDataDialog("Aktuell stehen für diese Mensa keine Daten zur Verfügung.", "Achtung");
+            }
 
             UpdateLiveTile();
 
             AppStorage.Save();
+        }
+
+        /// <summary>
+        /// Shows a modal dialog.
+        /// </summary>
+        /// <param name="msg">The message</param>
+        /// <param name="title">The title.</param>
+        private async void ShowNoDataDialog(string msg, string title)
+        {
+            MessageDialog md = new MessageDialog(msg, title);
+            bool? result = null;
+            md.Commands.Add(
+               new UICommand("OK", new UICommandInvokedHandler((cmd) => result = true)));
+
+            await md.ShowAsync();
+            if (result == true)
+            {
+                // do something    
+            }
         }
 
         /// <summary>

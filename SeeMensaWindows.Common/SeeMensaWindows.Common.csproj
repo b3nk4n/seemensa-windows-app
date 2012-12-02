@@ -105,6 +105,7 @@
     <Compile Include="Agents\BackgroundTask.cs" />
     <Compile Include="DataAccess\HttpWebLoader.cs" />
     <Compile Include="DataAccess\IRepository.cs" />
+    <Compile Include="Helpers\InternetAccessHelper.cs" />
     <Compile Include="Helpers\SeeMensaLiveTileHelper.cs" />
     <Compile Include="LiveTile\LiveTileData.cs" />
     <Compile Include="LiveTile\LiveTileManager.cs" />

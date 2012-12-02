@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Background;
 using SeeMensaWindows.Common.Storage;
 using SeeMensaWindows.Common.DataModel;
-using SeeMensaWindows.Common.LiveTile;
 using SeeMensaWindows.Common.DataAccess;
 using SeeMensaWindows.Common.Helpers;
 
@@ -56,11 +55,21 @@ namespace TileBackground
 
             if (delay.Days >= 5)
             {
-                var xml = await DownloadAsync(mensa.InterfaceUriDe);
+                try
+                {
+                    if (InternetAccessHelper.IsInternet())
+                    {
+                        var xml = await DownloadAsync(mensa.InterfaceUriDe);
 
-                mensa.ParseXml(xml);
+                        mensa.ParseXml(xml);
 
-                mensa.LastUpdate = DateTime.UtcNow;
+                        mensa.LastUpdate = DateTime.UtcNow;
+                    }
+                }
+                catch (Exception)
+                {
+                    mensa.ParseXml(string.Empty);
+                }
 
                 AppStorage.Save();
             }

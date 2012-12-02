@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
@@ -33,23 +29,30 @@ namespace SeeMensaWindows.Common.DataModel
         {
             _xml = xml;
 
-            try
+            if (!string.IsNullOrEmpty(_xml))
             {
-                XDocument xmlDoc = XDocument.Parse(xml);
-
-                this.Days.Clear();
-
-                foreach (XElement xmlDay in xmlDoc.Elements("speiseplan").Elements("tag"))
+                try
                 {
-                    var day = DayViewModel.CreateFromXml(xmlDay);
+                    XDocument xmlDoc = XDocument.Parse(xml);
 
-                    if (day.IsValid)
+                    this.Days.Clear();
+
+                    foreach (XElement xmlDay in xmlDoc.Elements("speiseplan").Elements("tag"))
                     {
-                        Days.Add(day);
+                        var day = DayViewModel.CreateFromXml(xmlDay);
+
+                        if (day.IsValid)
+                        {
+                            Days.Add(day);
+                        }
                     }
                 }
+                catch (Exception) { }
             }
-            catch (Exception) { }
+            else
+            {
+                this.Days.Clear();
+            }
         }
 
         private void ItemsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
