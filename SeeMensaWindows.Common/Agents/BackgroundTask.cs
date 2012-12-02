@@ -13,7 +13,7 @@ namespace SeeMensaWindows.Common.Agents
         /// <param name="name">The name of the background agent.</param>
         /// <param name="entryPoint">The entry point of the background agent.</param>
         /// <param name="intervall">The task intervall. The value must be 15 or more.</param>
-        public static void RegisterTimedBackgroundTask(string name, string entryPoint, uint intervall)
+        public static void RegisterTimedBackgroundTask(string name, string entryPoint, uint freshnessTime)
         {
             BackgroundTaskBuilder builder = new BackgroundTaskBuilder();
             // Friendly string name identifying the background task
@@ -21,7 +21,7 @@ namespace SeeMensaWindows.Common.Agents
             // Class name
             builder.TaskEntryPoint = entryPoint;
 
-            IBackgroundTrigger trigger = new MaintenanceTrigger(intervall, false);
+            IBackgroundTrigger trigger = new MaintenanceTrigger(freshnessTime, false);
             builder.SetTrigger(trigger);
 
             IBackgroundTaskRegistration task = builder.Register();

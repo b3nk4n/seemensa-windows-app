@@ -33,19 +33,23 @@ namespace SeeMensaWindows.Common.DataModel
         {
             _xml = xml;
 
-            XDocument xmlDoc = XDocument.Parse(xml);
-
-            this.Days.Clear();
-
-            foreach (XElement xmlDay in xmlDoc.Elements("speiseplan").Elements("tag"))
+            try
             {
-                var day = DayViewModel.CreateFromXml(xmlDay);
+                XDocument xmlDoc = XDocument.Parse(xml);
 
-                if (day.IsValid)
+                this.Days.Clear();
+
+                foreach (XElement xmlDay in xmlDoc.Elements("speiseplan").Elements("tag"))
                 {
-                    Days.Add(day);
+                    var day = DayViewModel.CreateFromXml(xmlDay);
+
+                    if (day.IsValid)
+                    {
+                        Days.Add(day);
+                    }
                 }
             }
+            catch (Exception) { }
         }
 
         private void ItemsCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

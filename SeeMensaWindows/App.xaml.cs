@@ -47,7 +47,7 @@ namespace SeeMensaWindows
             // Load the stored settings
             await AppStorage.Load();
 
-            BackgroundTask.RegisterTimedBackgroundTask(AGENT_NAME, AGENT_ENTRY_POINT, 60);
+            BackgroundTask.RegisterTimedBackgroundTask(AGENT_NAME, AGENT_ENTRY_POINT, 15);
 
             Frame rootFrame = Window.Current.Content as Frame;
 
