@@ -101,22 +101,22 @@ namespace SeeMensaWindows.Common.DataModel
             if (title.Contains(" Veg "))
             {
                 title = title.Replace(" Veg ", " ");
-                signList.Add("V");
+                signList.Add("Veg");
             }
             else if (title.Contains(" (Veg)"))
             {
                 title = title.Replace(" (Veg)", "");
-                signList.Add("V");
+                signList.Add("Veg");
             }
             else if (title.Contains(" ( Veg)"))
             {
                 title = title.Replace(" ( Veg)", "");
-                signList.Add("V");
+                signList.Add("Veg");
             }
             else if (title.EndsWith(" Veg"))
             {
                 title = title.Substring(0, title.Length - 4);
-                signList.Add("V");
+                signList.Add("Veg");
             }
 
             // Pig
@@ -320,74 +320,74 @@ namespace SeeMensaWindows.Common.DataModel
             {
                 title = title.Replace(" (Sch/Veg) ", " ");
                 signList.Add("S");
-                signList.Add("V");
+                signList.Add("Veg");
             }
             else if (title.Contains(" (Sch/Veg)"))
             {
                 title = title.Replace(" (Sch/Veg)", "");
                 signList.Add("S");
-                signList.Add("V");
+                signList.Add("Veg");
             }
             else if (title.EndsWith(" Sch/Veg"))
             {
                 title = title.Substring(0, title.Length - 4);
                 signList.Add("S");
-                signList.Add("V");
+                signList.Add("Veg");
             }
             else if (title.Contains(" P/Veg "))
             {
                 title = title.Replace(" P/Veg ", " ");
                 signList.Add("P");
-                signList.Add("V");
+                signList.Add("Veg");
             }
             else if (title.Contains(" (P/Veg)"))
             {
                 title = title.Replace(" (P/Veg)", "");
                 signList.Add("P");
-                signList.Add("V");
+                signList.Add("Veg");
             }
             else if (title.EndsWith(" P/Veg"))
             {
                 title = title.Substring(0, title.Length - 2);
                 signList.Add("P");
-                signList.Add("V");
+                signList.Add("Veg");
             }
 
             // Veg/Pig
             if (title.Contains(" Veg/Sch "))
             {
                 title = title.Replace(" (Veg/Sch) ", " ");
-                signList.Add("V");
+                signList.Add("Veg");
                 signList.Add("S");
             }
             else if (title.Contains(" (Veg/Sch)"))
             {
                 title = title.Replace(" (Veg/Sch)", "");
-                signList.Add("V");
+                signList.Add("Veg");
                 signList.Add("S");
             }
             else if (title.EndsWith(" Veg/Sch"))
             {
                 title = title.Substring(0, title.Length - 4);
-                signList.Add("V");
+                signList.Add("Veg");
                 signList.Add("S");
             }
             else if (title.Contains(" Veg/P "))
             {
                 title = title.Replace(" Veg/P ", " ");
-                signList.Add("V");
+                signList.Add("Veg");
                 signList.Add("P");
             }
             else if (title.Contains(" (Veg/P)"))
             {
                 title = title.Replace(" (Veg/P)", "");
-                signList.Add("V");
+                signList.Add("Veg");
                 signList.Add("P");
             }
             else if (title.EndsWith(" Veg/P"))
             {
                 title = title.Substring(0, title.Length - 2);
-                signList.Add("V");
+                signList.Add("Veg");
                 signList.Add("P");
             }
 
@@ -473,7 +473,7 @@ namespace SeeMensaWindows.Common.DataModel
             {
                 if (i != 0)
                 {
-                    sb.Append(", ");
+                    sb.Append(",");
                 }
 
                 sb.Append(signList[i]);

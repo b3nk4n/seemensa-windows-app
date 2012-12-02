@@ -103,6 +103,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\MealTypeControl.xaml.cs">
+      <DependentUpon>MealTypeControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Converters\DateConverter.cs" />
     <Compile Include="Converters\DayConverter.cs" />
     <Compile Include="Helpers\Converter.cs" />
@@ -139,13 +142,20 @@
     <None Include="SeeMensaWindows_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\beef.png" />
+    <Content Include="Assets\fish.png" />
+    <Content Include="Assets\lamp.png" />
     <Content Include="Assets\LargeLogo.png" />
     <Content Include="Assets\Logo.png" />
     <Content Include="Assets\LogoWide.png" />
+    <Content Include="Assets\pork.png" />
+    <Content Include="Assets\poultry.png" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SmallLogoBadge.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\veal.png" />
+    <Content Include="Assets\veg.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -155,6 +165,10 @@
     <Page Include="Common\StandardStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\MealTypeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ItemsPage.xaml">
       <Generator>MSBuild:Compile</Generator>

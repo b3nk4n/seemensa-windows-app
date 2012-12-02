@@ -76,11 +76,9 @@ namespace SeeMensaWindows
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
-            // TODO: Create an appropriate data model for your problem domain to replace the sample data
             var mensa = _mainViewModel.GetMensa((String)navigationParameter);
             this.DefaultViewModel["Mensa"] = mensa;
             this.DefaultViewModel["Days"] = mensa.Days;
-            //this.DefaultViewModel["RefreshCommand"] = _mainViewModel.RefreshCommand;
 
             if (pageState == null)
             {

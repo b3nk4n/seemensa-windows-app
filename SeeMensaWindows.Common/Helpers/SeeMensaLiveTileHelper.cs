@@ -18,7 +18,7 @@ namespace SeeMensaWindows.Common.Helpers
             {
                 var liveTileManager = new LiveTileManager(Windows.UI.Notifications.TileTemplateType.TileWideText09, Windows.UI.Notifications.TileTemplateType.TileSquareText02, true);
 
-                var todayMeals = mensa.Days[0].Meals; // TODO: select the correct day, not just the meals of today! Probably the mensa is already closed, so show the meals of tomorrow!
+                var todayMeals = mensa.Days[0].Meals;
 
                 for (int i = 0; (i < todayMeals.Count) && i < MAX_TILE_PAGES; i++)
                 {
